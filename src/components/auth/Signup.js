@@ -8,7 +8,7 @@ const Signup = () => {
   const [isValidButton, setIsValidButton] = useState(false);
 
   useEffect(() => {
-    setIsValidButton(inputEmail.isValid && inputPassword.isValid && inputPasswordCheck.isValid);
+    checkValidate(inputEmail.isValid, inputPassword.isValid, inputPasswordCheck.isValid);
   }, [inputEmail, inputPassword, inputPasswordCheck]);
 
   const onChangeEmailHandler = e => {
@@ -41,6 +41,11 @@ const Signup = () => {
     console.log(inputEmail);
     console.log(inputPassword);
     console.log(inputPasswordCheck);
+  };
+
+  const checkValidate = (email, passowrd, passwordCheck) => {
+    const validation = email && passowrd && passwordCheck;
+    setIsValidButton(validation);
   };
 
   return (
