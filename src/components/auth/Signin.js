@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { REGEX_EMAIL, REGEX_PASSWORD } from '../../enums/regex';
-import { userSignin } from '../../modules/user/actions';
+import { signin } from '../../modules/auth/actions';
 
 const Signin = () => {
   const dispatch = useDispatch();
-  const { data, loading, error } = useSelector(state => state.user);
+  const { data, loading, error } = useSelector(state => state.auth.user);
 
   const [input, setInput] = useState({ email: '', password: '', isValid: null });
   const [isValidButton, setIsValidButton] = useState(false);
@@ -49,7 +49,7 @@ const Signin = () => {
       return;
     }
 
-    dispatch(userSignin(input));
+    dispatch(signin(input));
   };
 
   const checkValidate = (email, password) => {

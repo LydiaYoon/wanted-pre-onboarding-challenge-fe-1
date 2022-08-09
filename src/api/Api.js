@@ -1,9 +1,10 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
-export const API = axios.create({
+export const clientApi = axios.create({
   baseURL: 'http://localhost:8080/',
 });
 
+// TODO: 비동기 통신 에러처리
 export const handleError = error => {
   if (axios.isAxiosError(error)) {
     if (error.response) {

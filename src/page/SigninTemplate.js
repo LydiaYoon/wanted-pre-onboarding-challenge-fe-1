@@ -5,7 +5,7 @@ import Signin from '../components/auth/Signin';
 import '../styles/auth.css';
 
 const SigninTemplate = () => {
-  const { data, loading } = useSelector(state => state.user);
+  const { data, loading } = useSelector(state => state.auth.user);
 
   return (
     <div className="auth-container">
