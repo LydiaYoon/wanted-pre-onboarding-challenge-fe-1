@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import SigninTemplate from './page/SigninTemplate';
+import SignupTemplate from './page/SignupTemplate';
+import TodoTemplate from './page/TodoTemplate';
+import GlobalStyle from './styles/GlobalStyle';
+// import './styles/common.css';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <GlobalStyle />
+      <div className="contents">
+        <Routes>
+          <Route path="/" element={<Navigate replace to="/signup" />} />
+          <Route path="/signin" element={<SigninTemplate />} />
+          <Route path="/signup" element={<SignupTemplate />} />
+          <Route path="/todo" element={<TodoTemplate />} />
+        </Routes>
+      </div>
+    </>
   );
-}
+};
 
 export default App;
+
+// pages : 페이지
+// components : 페이지에 들어가는 개별 컴포넌트
+// layouts : 페이지에 들어가는 공통 레이아웃 (header, footer)
+// hooks : 커스텀 훅
+// utils : 기타 함수
