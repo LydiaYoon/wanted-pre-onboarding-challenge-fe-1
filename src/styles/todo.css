@@ -126,15 +126,5 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* color: white;
-  background: #38d9a9; */
   font-size: 24px;
 }
-
-/* .todo-create-container .todo-form-submit:hover {
-  background: #63e6be;
-}
-
-.todo-create-container .todo-form-submit:active {
-  background: #20c997;
-} */

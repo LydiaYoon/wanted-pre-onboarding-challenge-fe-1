@@ -1,4 +1,4 @@
-import { clientApi, handleError } from '../Api';
+import { clientApi } from '../Api';
 
 const authAPI = {
   signin: async body => {
