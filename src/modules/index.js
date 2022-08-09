@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import { all } from 'redux-saga/effects';
 import todo from './todo';
 import auth from './auth';
-import { todoSaga } from './todo/sagas';
+import { todoSaga } from './todo';
 import { authSaga } from './auth';
 
 const rootReducer = combineReducers({

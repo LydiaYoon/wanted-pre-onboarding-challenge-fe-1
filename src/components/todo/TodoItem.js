@@ -18,7 +18,7 @@ const TodoItem = ({ id, title, content }) => {
 
   return (
     <li className="todo-item-wrapper">
-      <div className="todo-item">
+      <div className="todo-item" data-id={id}>
         <div className="todo-item-header">
           <div className="todo-item-title" onClick={onClickTitle}>
             {title}
