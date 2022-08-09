@@ -12,7 +12,7 @@ const App = () => {
       <GlobalStyle />
       <div className="contents">
         <Routes>
-          <Route path="/" element={<Navigate replace to="/signup" />} />
+          <Route path="/" element={<Navigate replace to="/todo" />} />
           <Route path="/signin" element={<SigninTemplate />} />
           <Route path="/signup" element={<SignupTemplate />} />
           <Route path="/todo" element={<TodoTemplate />} />
