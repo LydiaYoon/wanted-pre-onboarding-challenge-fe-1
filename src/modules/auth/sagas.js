@@ -9,7 +9,7 @@ function* signinSaga({ payload }) {
     const response = yield call(authAPI.signin, payload);
     yield put({
       type: SIGNIN_SUCCESS,
-      payload: response.data,
+      payload: response,
     });
   } catch (e) {
     yield put({
@@ -25,7 +25,7 @@ function* signupSaga({ payload }) {
     const response = yield call(authAPI.signup, payload);
     yield put({
       type: SIGNUP_SUCCESS,
-      payload: response.data,
+      payload: response,
     });
   } catch (e) {
     yield put({
