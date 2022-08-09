@@ -4,13 +4,12 @@ import { SIGNIN, SIGNIN_SUCCESS, SIGNIN_ERROR, SIGNUP, SIGNUP_SUCCESS, SIGNUP_ER
 
 // saga
 
-function* signinSaga(action) {
-  const param = action.payload;
+function* signinSaga({ payload }) {
   try {
-    const payload = yield call(authAPI.signin, param);
+    const response = yield call(authAPI.signin, payload);
     yield put({
       type: SIGNIN_SUCCESS,
-      payload,
+      payload: response.data,
     });
   } catch (e) {
     yield put({
@@ -21,14 +20,12 @@ function* signinSaga(action) {
   }
 }
 
-function* signupSaga(action) {
-  const param = action.payload;
-
+function* signupSaga({ payload }) {
   try {
-    const payload = yield call(authAPI.signup, param);
+    const response = yield call(authAPI.signup, payload);
     yield put({
       type: SIGNUP_SUCCESS,
-      payload,
+      payload: response.data,
     });
   } catch (e) {
     yield put({

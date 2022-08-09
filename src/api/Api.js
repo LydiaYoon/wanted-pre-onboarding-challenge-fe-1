@@ -20,5 +20,4 @@ export const handleError = error => {
   } else {
     console.log(error.message);
   }
-  return error;
 };

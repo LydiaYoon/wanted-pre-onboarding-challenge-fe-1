@@ -1,20 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { REGEX_EMAIL, REGEX_PASSWORD } from '../../enums/regex';
-import { signin } from '../../modules/auth/actions';
+import * as authActions from '../../modules/auth/actions';
 
 const Signin = () => {
   const dispatch = useDispatch();
-  const { data, loading, error } = useSelector(state => state.auth.user);
+  const { data, error } = useSelector(state => state.auth.user);
 
   const [input, setInput] = useState({ email: '', password: '', isValid: null });
   const [isValidButton, setIsValidButton] = useState(false);
 
   useEffect(() => {
-    if (error && error.status == 400) {
-      console.log('로그인에 실패했습니다');
+    if (data && data.message) {
+      alert(data.message);
+      window.localStorage.setItem('authToken', data.token);
+      window.location.href = '/';
     }
-  }, [data, error]);
+  }, [data]);
+
+  useEffect(() => {
+    if (error && error.response && error.response.data) {
+      alert(error.response.data.details);
+    }
+  }, [error]);
 
   useEffect(() => {
     const timeid = setTimeout(() => {
@@ -40,7 +48,6 @@ const Signin = () => {
 
   const onSubmitHandler = e => {
     e.preventDefault();
-    console.log('%c로그인', 'color: yellow; font-size: 14pt');
 
     if (!REGEX_EMAIL.test(input.email) || !REGEX_PASSWORD.test(input.password)) {
       setInput(prevState => {
@@ -49,7 +56,7 @@ const Signin = () => {
       return;
     }
 
-    dispatch(signin(input));
+    dispatch(authActions.signin(input));
   };
 
   const checkValidate = (email, password) => {

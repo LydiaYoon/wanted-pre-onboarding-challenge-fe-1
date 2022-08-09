@@ -1,11 +1,29 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { REGEX_EMAIL, REGEX_PASSWORD } from '../../enums/regex';
+import * as authActions from '../../modules/auth/actions';
 
 const Signup = () => {
+  const dispatch = useDispatch();
+  const { data, error } = useSelector(state => state.auth.user);
+
   const [inputEmail, setInputEmail] = useState({ value: '', isValid: null });
   const [inputPassword, setInputPassword] = useState({ value: '', isValid: null });
   const [inputPasswordCheck, setInputPasswordCheck] = useState({ isValid: null });
   const [isValidButton, setIsValidButton] = useState(false);
+
+  useEffect(() => {
+    if (data && data.message) {
+      alert(data.message);
+      window.location.href = '/';
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (error && error.response && error.response.data) {
+      alert(error.response.data.details);
+    }
+  }, [error]);
 
   useEffect(() => {
     checkValidate(inputEmail.isValid, inputPassword.isValid, inputPasswordCheck.isValid);
@@ -37,10 +55,12 @@ const Signup = () => {
 
   const onSubmitHandler = e => {
     e.preventDefault();
-    console.log('%c회원가입', 'color: lime; font-size: 14pt');
-    console.log(inputEmail);
-    console.log(inputPassword);
-    console.log(inputPasswordCheck);
+
+    if (!isValidButton) {
+      return;
+    }
+
+    dispatch(authActions.signup({ email: inputEmail.value, password: inputPassword.value }));
   };
 
   const checkValidate = (email, passowrd, passwordCheck) => {
@@ -53,7 +73,8 @@ const Signup = () => {
       <h1>회원가입</h1>
       <form className="auth-form" onSubmit={onSubmitHandler}>
         <input type="text" name="email" placeholder="email" onChange={onChangeEmailHandler} />
-        {inputEmail.isValid && <p className="valid">사용가능한 이메일입니다.</p>}
+        {/* onChange에서 확인 불가능해서 주석처리 */}
+        {/* {inputEmail.isValid && <p className="valid">사용가능한 이메일입니다.</p>} */}
         {inputEmail.isValid !== null && !inputEmail.isValid && <p className="invalid">잘못된 이메일 형식입니다.</p>}
 
         <input type="password" name="password" placeholder="password" onChange={onChangePasswordHandler} />
