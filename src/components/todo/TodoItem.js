@@ -8,8 +8,8 @@ const TodoItem = ({ id, title, content }) => {
     setOpen(!open);
   };
 
-  const onClickModify = e => {
-    console.log('modify');
+  const onClickUpdate = e => {
+    console.log('update');
   };
 
   const onClickDelete = e => {
@@ -23,7 +23,7 @@ const TodoItem = ({ id, title, content }) => {
           <div className="todo-item-title" onClick={onClickTitle}>
             {title}
           </div>
-          <button className="todo-item-modify" onClick={onClickModify}>
+          <button className="todo-item-update" onClick={onClickUpdate}>
             #
           </button>
           <button className="todo-item-delete error" onClick={onClickDelete}>
