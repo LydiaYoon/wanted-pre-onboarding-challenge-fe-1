@@ -1,11 +1,11 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosError } from 'axios';
 
 export const clientApi = axios.create({
   baseURL: 'http://localhost:8080/',
 });
 
 // TODO: 비동기 통신 에러처리
-export const handleError = error => {
+export const handleError = (error: Error | AxiosError) => {
   if (axios.isAxiosError(error)) {
     if (error.response) {
       console.log(error.response.data);
@@ -21,3 +21,7 @@ export const handleError = error => {
     console.log(error.message);
   }
 };
+
+export interface ErrorResponse {
+  details: string;
+}

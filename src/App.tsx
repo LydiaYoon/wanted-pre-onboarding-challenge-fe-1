@@ -1,10 +1,8 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import SigninTemplate from './page/SigninTemplate';
-import SignupTemplate from './page/SignupTemplate';
+import AuthTemplate from './page/ AuthTemplate';
 import TodoTemplate from './page/TodoTemplate';
 import GlobalStyle from './styles/GlobalStyle';
-// import './styles/common.css';
 
 const App = () => {
   return (
@@ -13,8 +11,14 @@ const App = () => {
       <div className="contents">
         <Routes>
           <Route path="/" element={<Navigate replace to="/todo" />} />
+          {/*
           <Route path="/signin" element={<SigninTemplate />} />
           <Route path="/signup" element={<SignupTemplate />} />
+          */}
+
+          <Route path="/signin" element={<AuthTemplate path="signin" />} />
+          <Route path="/signup" element={<AuthTemplate path="signup" />} />
+
           <Route path="/todo" element={<TodoTemplate />} />
         </Routes>
       </div>

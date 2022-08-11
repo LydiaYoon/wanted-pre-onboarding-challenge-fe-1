@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { REGEX_EMAIL, REGEX_PASSWORD } from '../../enums/regex';
 import * as authActions from '../../modules/auth/actions';
+import { RootState } from '../../modules';
+import axios from 'axios';
+import { REGEX_EMAIL, REGEX_PASSWORD } from '../../enums/regex';
+
+type InputType = {
+  value: string;
+  isValid: boolean | null;
+};
 
 const Signup = () => {
   const dispatch = useDispatch();
-  const { data, error } = useSelector(state => state.auth.user);
+  const { data, error } = useSelector((state: RootState) => state.auth.user);
 
-  const [inputEmail, setInputEmail] = useState({ value: '', isValid: null });
-  const [inputPassword, setInputPassword] = useState({ value: '', isValid: null });
-  const [inputPasswordCheck, setInputPasswordCheck] = useState({ isValid: null });
-  const [isValidButton, setIsValidButton] = useState(false);
+  const [inputEmail, setInputEmail] = useState<InputType>({ value: '', isValid: null });
+  const [inputPassword, setInputPassword] = useState<InputType>({ value: '', isValid: null });
+  const [inputPasswordCheck, setInputPasswordCheck] = useState<{ isValid: boolean | null }>({ isValid: null });
+  const [isValidButton, setIsValidButton] = useState<boolean>(false);
 
   useEffect(() => {
     if (data && data.message) {
@@ -20,31 +27,35 @@ const Signup = () => {
   }, [data]);
 
   useEffect(() => {
-    if (error && error.response && error.response.data) {
-      alert(error.response.data.details);
+    if (error && axios.isAxiosError(error)) {
+      if (error.response && error.response.data) {
+        alert(error.response.data.details);
+      }
     }
   }, [error]);
 
   useEffect(() => {
-    checkValidate(inputEmail.isValid, inputPassword.isValid, inputPasswordCheck.isValid);
+    if (inputEmail.isValid != null && inputPassword.isValid != null && inputPasswordCheck.isValid != null) {
+      checkValidate(inputEmail.isValid, inputPassword.isValid, inputPasswordCheck.isValid);
+    }
   }, [inputEmail, inputPassword, inputPasswordCheck]);
 
-  const onChangeEmailHandler = e => {
-    const { value } = e.target;
+  const onChangeEmailHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
     setInputEmail(prevState => {
       return { ...prevState, value: value, isValid: REGEX_EMAIL.test(value) };
     });
   };
 
-  const onChangePasswordHandler = e => {
-    const { value } = e.target;
+  const onChangePasswordHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
     setInputPassword(prevState => {
       return { ...prevState, value: value, isValid: REGEX_PASSWORD.test(value) };
     });
   };
 
-  const onChangePasswordCheckHandler = e => {
-    const { value } = e.target;
+  const onChangePasswordCheckHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
     setInputPasswordCheck(prevState => {
       return {
         ...prevState,
@@ -53,24 +64,24 @@ const Signup = () => {
     });
   };
 
-  const onSubmitHandler = e => {
-    e.preventDefault();
+  const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
     if (!isValidButton) {
       return;
     }
 
-    dispatch(authActions.signup({ email: inputEmail.value, password: inputPassword.value }));
+    dispatch(authActions.signupAsync.request({ email: inputEmail.value, password: inputPassword.value }));
   };
 
-  const checkValidate = (email, passowrd, passwordCheck) => {
-    const validation = email && passowrd && passwordCheck;
+  const checkValidate = (isEmailValid: boolean, isPasswordValid: boolean, isPasswordCheckValid: boolean) => {
+    const validation: boolean = isEmailValid && isPasswordValid && isPasswordCheckValid;
     setIsValidButton(validation);
   };
 
   return (
     <div className="auth-form-wrapper">
-      <h1>회원가입</h1>
+      <h3>회원가입</h3>
       <form className="auth-form" onSubmit={onSubmitHandler}>
         <input type="text" name="email" placeholder="email" onChange={onChangeEmailHandler} />
         {/* onChange에서 확인 불가능해서 주석처리 */}

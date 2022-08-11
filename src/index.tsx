@@ -14,13 +14,13 @@ const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(sagaM
 sagaMiddleware.run(rootSaga);
 
 const container = document.getElementById('app');
+if (!container) throw new Error('Failed to find the root element');
+
 const root = createRoot(container);
 root.render(
   <BrowserRouter>
-    {/* <ScrollToTop> */}
     <Provider store={store}>
       <App />
     </Provider>
-    {/* </ScrollToTop> */}
   </BrowserRouter>
 );

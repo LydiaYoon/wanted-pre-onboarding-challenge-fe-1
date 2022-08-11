@@ -25,4 +25,10 @@ module.exports = {
       },
     ],
   },
+  parserOptions: {
+    parser: '@typescript-eslint/parser',
+  },
+  // tsconfig: {
+  //   jsx: 'react-jsx',
+  // },
 };

@@ -21,21 +21,6 @@ const GlobalStyle = createGlobalStyle`
     --button-bg-color: #6b6bff;
     --button-hover-bg-color: #8787ff;
     --button-active-bg-color: #5252fa;
-
-    --button-color: white;
-    --button-bg-color: #6b6bff;
-    --button-hover-bg-color: #8787ff;
-    --button-active-bg-color: #5252fa;
-
-    --button-color: white;
-    --button-bg-color: #6b6bff;
-    --button-hover-bg-color: #8787ff;
-    --button-active-bg-color: #5252fa;
-
-    --button-color: white;
-    --button-bg-color: #6b6bff;
-    --button-hover-bg-color: #8787ff;
-    --button-active-bg-color: #5252fa;
   }
 
   body,
@@ -115,22 +100,24 @@ const GlobalStyle = createGlobalStyle`
 
     color: var(--button-color);
     background: var(--button-bg-color);
+    &:hover, &:focus {
+      var(--button-hover-bg-color);
+    }
+    &:active {
+      background: var(--button-active-bg-color);
+    }
 
     border: none;
     border-radius: 4px;
+    outline: none;
 
     cursor: pointer;
     transition: 0.5s;
-  }
 
-  button:hover,
-  button:focus {
-    background: var(--button-hover-bg-color);
-    outline: 0;
-  }
-
-  button:active {
-    background: var(--button-active-bg-color);
+    &:disabled {
+      background: #ccc;
+      cursor: default;
+    }
   }
 
   button.success {
@@ -150,11 +137,6 @@ const GlobalStyle = createGlobalStyle`
     --button-hover-bg-color: #e0a800;
     --button-active-bg-color: #fafa52;
   }  
-
-  button:disabled {
-    background: #ccc;
-    cursor: default;
-  }
 
   .textbox,
   input[type="text"],
