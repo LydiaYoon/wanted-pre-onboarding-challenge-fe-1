@@ -11,14 +11,8 @@ const App = () => {
       <div className="contents">
         <Routes>
           <Route path="/" element={<Navigate replace to="/todo" />} />
-          {/*
-          <Route path="/signin" element={<SigninTemplate />} />
-          <Route path="/signup" element={<SignupTemplate />} />
-          */}
 
-          <Route path="/signin" element={<AuthTemplate path="signin" />} />
-          <Route path="/signup" element={<AuthTemplate path="signup" />} />
-
+          <Route path="/auth/*" element={<AuthTemplate />} />
           <Route path="/todo" element={<TodoTemplate />} />
         </Routes>
       </div>

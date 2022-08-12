@@ -75,6 +75,6 @@ export interface TodoData {
   title: string;
   content: string;
   id: string;
-  createAt: string;
+  createdAt: string;
   updatedAt: string;
 }

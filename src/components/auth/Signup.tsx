@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import * as layoutActions from '../../modules/layout/actions';
 import * as authActions from '../../modules/auth/actions';
 import { RootState } from '../../modules';
 import axios from 'axios';
+import { PAGE } from '../../enums/commonEnum';
 import { REGEX_EMAIL, REGEX_PASSWORD } from '../../enums/regex';
 
 type InputType = {
@@ -18,6 +20,10 @@ const Signup = () => {
   const [inputPassword, setInputPassword] = useState<InputType>({ value: '', isValid: null });
   const [inputPasswordCheck, setInputPasswordCheck] = useState<{ isValid: boolean | null }>({ isValid: null });
   const [isValidButton, setIsValidButton] = useState<boolean>(false);
+
+  useEffect(() => {
+    dispatch(layoutActions.setPage(PAGE.SIGN_IN));
+  }, []);
 
   useEffect(() => {
     if (data && data.message) {

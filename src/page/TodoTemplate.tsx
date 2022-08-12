@@ -1,15 +1,22 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import * as layoutActions from '../modules/layout/actions';
 import * as todoActions from '../modules/todo/actions';
 import Header from '../components/common/Header';
 import TodoCreate from '../components/todo/TodoCreate';
 import TodoList from '../components/todo/TodoList';
 import styled from 'styled-components';
 import FloatingButton from '../components/common/FloatingButton';
+import { PAGE } from '../enums/commonEnum';
 
 const TodoTemplate = () => {
   const authToken = window.localStorage.getItem('authToken');
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(layoutActions.setPage(PAGE.TODO_LIST));
+    dispatch(layoutActions.setHeaderTitle('TO DO LIST'));
+  }, []);
 
   useEffect(() => {
     console.log(authToken);
@@ -23,7 +30,7 @@ const TodoTemplate = () => {
   return (
     <>
       <TodoContainer>
-        <Header title="TO DO LIST" />
+        <Header />
         <TodoList />
         <TodoCreate />
       </TodoContainer>

@@ -1,11 +1,20 @@
 import React, { useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import * as layoutActions from '../modules/layout/actions';
 import Header from '../components/common/Header';
 import Signin from '../components/auth/Signin';
 import Signup from '../components/auth/Signup';
 import styled from 'styled-components';
 
-const AuthTemplate = ({ path }: { path: string }) => {
+const AuthTemplate = () => {
   const authToken = window.localStorage.getItem('authToken');
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(layoutActions.setHeaderTitle('Authentication'));
+  }, []);
 
   useEffect(() => {
     console.log(authToken);
@@ -17,9 +26,11 @@ const AuthTemplate = ({ path }: { path: string }) => {
 
   return (
     <AuthContainer>
-      <Header title="Authentication" />
-      {path == 'signin' && <Signin />}
-      {path == 'signup' && <Signup />}
+      <Header />
+      <Routes>
+        <Route path="signin" element={<Signin />} />
+        <Route path="signup" element={<Signup />} />
+      </Routes>
     </AuthContainer>
   );
 };

@@ -47,6 +47,6 @@ export const updateTodoAsync = createAsyncAction(UPDATE_TODO, UPDATE_TODO_SUCCES
 
 export const deleteTodoAsync = createAsyncAction(DELETE_TODO, DELETE_TODO_SUCCESS, DELETE_TODO_ERROR)<
   { id: Id; authToken: AuthToken },
-  { data: null | string },
+  null | string,
   AxiosError
 >();
