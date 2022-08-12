@@ -1,7 +1,7 @@
 import { ActionType, createReducer } from 'typesafe-actions';
 import { AuthResponse } from '../../api/auth/authApi';
 import { Response } from '../index';
-import { SIGNIN, SIGNIN_SUCCESS, SIGNIN_ERROR, SIGNUP, SIGNUP_SUCCESS, SIGNUP_ERROR } from './types';
+import { SIGNIN, SIGNIN_SUCCESS, SIGNIN_ERROR, SIGNUP, SIGNUP_SUCCESS, SIGNUP_ERROR, SET_AUTH_TOKEN } from './types';
 import * as actions from './actions';
 
 // reducer
@@ -35,6 +35,11 @@ const auth = createReducer<AuthState, AuthAction>(initialState, {
   [SIGNUP_ERROR]: (state, { payload }) => ({
     ...state,
     user: { data: null, loading: false, error: payload },
+  }),
+
+  [SET_AUTH_TOKEN]: (state, { payload }) => ({
+    ...state,
+    user: { ...state.user, data: { message: '', token: payload } },
   }),
 });
 
