@@ -1,10 +1,14 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { RootState } from '../../modules';
 
-const Header = ({ title }: { title: string }) => {
+const Header = () => {
+  const { header } = useSelector((state: RootState) => state.layout);
+
   return (
     <HeaderWrapper>
-      <h1>{title}</h1>
+      <h1>{header.title}</h1>
     </HeaderWrapper>
   );
 };
