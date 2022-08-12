@@ -1,13 +1,15 @@
 import { combineReducers } from 'redux';
 import { all } from 'redux-saga/effects';
-import todo from './todo';
+import layout from './layout';
 import auth from './auth';
-import { todoSaga } from './todo';
+import todo from './todo';
 import { authSaga } from './auth';
+import { todoSaga } from './todo';
 import { AxiosError } from 'axios';
 import { ErrorResponse } from '../api/Api';
 
 const rootReducer = combineReducers({
+  layout,
   auth,
   todo,
 });
