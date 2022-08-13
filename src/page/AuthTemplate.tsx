@@ -6,12 +6,8 @@ import Header from '../components/common/Header';
 import Signin from '../components/auth/Signin';
 import Signup from '../components/auth/Signup';
 import styled from 'styled-components';
-import { ProtectedRoute } from '../Router';
-import { ALERT_MESSAGE, PAGE } from '../enums/commonEnum';
 
 const AuthTemplate = () => {
-  const authToken = JSON.parse(localStorage.getItem('authToken') as string);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,19 +19,6 @@ const AuthTemplate = () => {
       <Header />
       <Routes>
         <Route path="signin" element={<Signin />} />
-
-        <Route
-          path="signup"
-          element={
-            <ProtectedRoute
-              isAllowed={!authToken || (!!authToken && !authToken.token)}
-              redirectPath={PAGE.TODO_LIST}
-              callback={() => alert(ALERT_MESSAGE.ALREADY_SIGN_IN)}
-            >
-              <Signup />
-            </ProtectedRoute>
-          }
-        ></Route>
         <Route path="signup" element={<Signup />} />
       </Routes>
     </AuthContainer>

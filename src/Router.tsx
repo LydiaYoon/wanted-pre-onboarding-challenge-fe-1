@@ -21,7 +21,19 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<Navigate replace to="/todos" />} />
 
-        <Route path="/auth/*" element={<AuthTemplate />} />
+        <Route
+          path="/auth/*"
+          element={
+            <ProtectedRoute
+              isAllowed={!authToken || (!!authToken && !authToken.token)}
+              redirectPath={PAGE.TODO_LIST}
+              callback={() => alert(ALERT_MESSAGE.ALREADY_SIGN_IN)}
+            >
+              <AuthTemplate />
+            </ProtectedRoute>
+          }
+        />
+
         <Route
           path="/todos"
           element={
@@ -33,9 +45,7 @@ const Router = () => {
               <TodoTemplate />
             </ProtectedRoute>
           }
-        >
-          <Route path=":id" element={<TodoTemplate />} />
-        </Route>
+        />
       </Routes>
     </>
   );
