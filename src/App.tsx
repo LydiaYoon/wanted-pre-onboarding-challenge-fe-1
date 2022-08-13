@@ -10,7 +10,7 @@ const App = () => {
       <GlobalStyle />
       <div className="contents">
         <Routes>
-          <Route path="/" element={<Navigate replace to="/todo" />} />
+          <Route path="/" element={<Navigate replace to="/todos" />} />
 
           <Route path="/auth/*" element={<AuthTemplate />} />
           <Route path="/todos" element={<TodoTemplate />} />
