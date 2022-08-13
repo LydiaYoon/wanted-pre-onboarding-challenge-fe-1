@@ -1,11 +1,15 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { MdAdd } from 'react-icons/md';
 
-const FloatingButton = () => {
+type FloatingButtonProps = {
+  handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+};
+
+const FloatingButton = ({ handleClick }: FloatingButtonProps) => {
   return (
     <>
-      <CircleButton open={false}>
+      <CircleButton onClick={handleClick}>
         <MdAdd />
       </CircleButton>
     </>
@@ -14,7 +18,7 @@ const FloatingButton = () => {
 
 export default FloatingButton;
 
-const CircleButton = styled.button<{ open: boolean }>`
+const CircleButton = styled.button`
   z-index: 5;
 
   display: flex;
@@ -41,17 +45,4 @@ const CircleButton = styled.button<{ open: boolean }>`
 
   border-radius: 50%;
   box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.05);
-
-  ${props =>
-    props.open &&
-    css`
-      background: #ff6b6b;
-      &:hover {
-        background: #ff8787;
-      }
-      &:active {
-        background: #fa5252;
-      }
-      transform: translate(-50%, 50%) rotate(45deg);
-    `}
 `;

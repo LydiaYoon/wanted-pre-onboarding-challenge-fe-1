@@ -3,14 +3,14 @@ import { useDispatch } from 'react-redux';
 import * as layoutActions from '../modules/layout/actions';
 import * as todoActions from '../modules/todo/actions';
 import Header from '../components/common/Header';
-import TodoCreate from '../components/todo/TodoCreate';
 import TodoList from '../components/todo/TodoList';
-import styled from 'styled-components';
+import TodoCreate from '../components/todo/TodoCreate';
 import FloatingButton from '../components/common/FloatingButton';
+import styled from 'styled-components';
 import { PAGE } from '../enums/commonEnum';
 
 const TodoTemplate = () => {
-  const authToken = window.localStorage.getItem('authToken');
+  const authToken = localStorage.getItem('authToken');
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -19,7 +19,6 @@ const TodoTemplate = () => {
   }, []);
 
   useEffect(() => {
-    console.log(authToken);
     if (authToken) {
       // TODO: 투두리스트 페이지 접근시 로컬 스토리지 토큰 유효성 체크
       // 유효하지 않다면 사용자에게 알리고 로그인 페이지로 리다이렉트
@@ -27,14 +26,17 @@ const TodoTemplate = () => {
     }
   }, [authToken]);
 
+  const onClickButton = (event: React.MouseEvent<HTMLButtonElement>) => {
+    dispatch(layoutActions.openModal({ isOpen: true, element: <TodoCreate /> }));
+  };
+
   return (
     <>
       <TodoContainer>
         <Header />
         <TodoList />
-        <TodoCreate />
       </TodoContainer>
-      <FloatingButton />
+      <FloatingButton handleClick={onClickButton} />
     </>
   );
 };

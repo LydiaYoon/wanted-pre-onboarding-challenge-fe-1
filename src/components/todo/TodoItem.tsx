@@ -1,68 +1,28 @@
-import React from 'react';
 import { useState } from 'react';
+import { MdDone } from 'react-icons/md';
 import styled, { css } from 'styled-components';
-import { MdDone, MdEdit, MdDelete } from 'react-icons/md';
 
 type TodoItemProps = {
   index: number;
   id: string;
   title: string;
-  content: string;
-  expanded: number | null;
-  handleChange: (index: number) => void;
+  handleClick: (index: number, id: string) => void;
 };
 
-const TodoItem = ({ index, id, title, content, expanded, handleChange }: TodoItemProps) => {
+const TodoItem = ({ index, id, title, handleClick }: TodoItemProps) => {
   const [done, setDone] = useState<boolean>(index % 2 == 0);
   const onToggle = () => setDone(!done);
 
-  const onClickUpdate = (event: React.MouseEvent<HTMLDivElement>) => {
-    // TODO: 투두리스트 Update
-    console.log('update');
-    console.log(event.target);
-  };
-
-  const onClickDelete = (event: React.MouseEvent<HTMLDivElement>) => {
-    // TODO: 투두리스트 Delete
-    console.log('delete');
-    console.log(event.target);
-  };
-
   return (
     <TodoItemWrapper>
-      <div className="row">
-        <div className="left">
-          <CheckCircle done={done} onClick={onToggle}>
-            {done && <MdDone />}
-          </CheckCircle>
-        </div>
-        <div className="right">
-          <TodoItemTitle done={done} onClick={() => handleChange(index)}>
-            {title}
-          </TodoItemTitle>
-        </div>
+      <div>
+        <CheckCircle done={done} onClick={onToggle}>
+          {done && <MdDone />}
+        </CheckCircle>
       </div>
-      <div className="row">
-        <div className="left" />
-        <div className="right">
-          {expanded === index && (
-            <TodoItemContent>
-              {content}
-              {content}
-              {content}
-
-              <div className="row" style={{ justifyContent: 'flex-end' }}>
-                <Update onClick={onClickUpdate}>
-                  <MdEdit />
-                </Update>
-                <Delete onClick={onClickDelete}>
-                  <MdDelete />
-                </Delete>
-              </div>
-            </TodoItemContent>
-          )}
-        </div>
-      </div>
+      <TodoItemTitle done={done} onClick={() => handleClick(index, id)}>
+        {title}
+      </TodoItemTitle>
     </TodoItemWrapper>
   );
 };
@@ -71,47 +31,19 @@ export default TodoItem;
 
 const TodoItemWrapper = styled.li`
   display: flex;
-  flex-direction: column;
   padding: 12px 0;
 
-  .row {
-    display: flex;
-    align-items: center;
-
-    .left {
-      flex: 1;
-    }
-
-    .right {
-      flex: 8;
-      display: flex;
-      flex-direction: column;
-      color: #495057;
-      line-height: initial;
-      word-break: break-all;
-    }
+  div:nth-child(1) {
+    flex: 1;
+    margin-top: 2px;
   }
-`;
 
-const TodoItemTitle = styled.div<{ done: boolean }>`
-  flex: 1;
-  display: flex;
-  align-items: center;
-  height: 32px;
-  color: #495057;
-  font-size: 21px;
-  cursor: pointer;
-  ${props =>
-    props.done &&
-    css`
-      color: #aaa;
-      text-decoration: line-through;
-    `}
-`;
-
-const TodoItemContent = styled.div`
-  padding-top: 12px;
-  line-height: initial;
+  div:nth-child(2) {
+    flex: 8;
+    display: flex;
+    line-height: initial;
+    word-break: break-all;
+  }
 `;
 
 const CheckCircle = styled.div<{ done: boolean }>`
@@ -132,28 +64,18 @@ const CheckCircle = styled.div<{ done: boolean }>`
     `}
 `;
 
-const Update = styled.div`
+const TodoItemTitle = styled.div<{ done: boolean }>`
+  flex: 1;
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 32px;
   height: 32px;
-  margin-right: 14px;
-  color: #6b6bff;
-  font-size: 24px;
-  // background: #eee;
+  color: #495057;
+  font-size: 21px;
   cursor: pointer;
-`;
-
-const Delete = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  // color: #dee2e6;
-  color: #ff6b6b;
-  font-size: 24px;
-  // background: #eee;
-  cursor: pointer;
+  ${props =>
+    props.done &&
+    css`
+      color: #aaa;
+      text-decoration: line-through;
+    `}
 `;

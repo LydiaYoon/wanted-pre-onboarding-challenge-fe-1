@@ -1,14 +1,14 @@
-import { clientApi } from '../Api';
-import { AxiosResponse } from 'axios';
+import { clientAPI } from '../Api';
 
+// API 인스턴스를 사용한 서버 통신
 const authAPI = {
   signin: async (body: AuthParam) => {
-    const response: AxiosResponse = await clientApi.post<AuthResponse>('/users/login', body);
+    const response = await clientAPI.post<AuthResponse>('/users/login', body);
     return response.data;
   },
 
   signup: async (body: AuthParam) => {
-    const response: AxiosResponse = await clientApi.post<AuthResponse>('/users/create', body);
+    const response = await clientAPI.post<AuthResponse>('/users/create', body);
     return response.data;
   },
 };

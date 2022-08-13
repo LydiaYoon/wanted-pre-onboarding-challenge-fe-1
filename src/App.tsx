@@ -1,7 +1,6 @@
 import React from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
-import AuthTemplate from './page/ AuthTemplate';
-import TodoTemplate from './page/TodoTemplate';
+import Router from './Router';
+import Modal from './components/common/Modal';
 import GlobalStyle from './styles/GlobalStyle';
 
 const App = () => {
@@ -9,12 +8,8 @@ const App = () => {
     <>
       <GlobalStyle />
       <div className="contents">
-        <Routes>
-          <Route path="/" element={<Navigate replace to="/todo" />} />
-
-          <Route path="/auth/*" element={<AuthTemplate />} />
-          <Route path="/todo" element={<TodoTemplate />} />
-        </Routes>
+        <Router />
+        <Modal />
       </div>
     </>
   );
