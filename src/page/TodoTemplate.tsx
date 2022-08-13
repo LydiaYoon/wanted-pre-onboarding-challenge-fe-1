@@ -10,7 +10,7 @@ import FloatingButton from '../components/common/FloatingButton';
 import { PAGE } from '../enums/commonEnum';
 
 const TodoTemplate = () => {
-  const authToken = window.localStorage.getItem('authToken');
+  const authToken = localStorage.getItem('authToken');
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -19,7 +19,6 @@ const TodoTemplate = () => {
   }, []);
 
   useEffect(() => {
-    console.log(authToken);
     if (authToken) {
       // TODO: 투두리스트 페이지 접근시 로컬 스토리지 토큰 유효성 체크
       // 유효하지 않다면 사용자에게 알리고 로그인 페이지로 리다이렉트

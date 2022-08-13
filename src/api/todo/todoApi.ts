@@ -1,6 +1,7 @@
 import { clientAPI } from '../Api';
 import { AxiosResponse } from 'axios';
 
+// API 인스턴스를 사용한 서버 통신
 const todoAPI = {
   getAll: async (authToken: AuthToken) => {
     const response: AxiosResponse = await clientAPI.get<TodoResponse<TodoData[]>>('/todos', {

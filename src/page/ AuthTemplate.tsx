@@ -8,7 +8,7 @@ import Signup from '../components/auth/Signup';
 import styled from 'styled-components';
 
 const AuthTemplate = () => {
-  const authToken = window.localStorage.getItem('authToken');
+  const authToken = localStorage.getItem('authToken');
 
   const dispatch = useDispatch();
 
@@ -17,7 +17,6 @@ const AuthTemplate = () => {
   }, []);
 
   useEffect(() => {
-    console.log(authToken);
     if (authToken) {
       // TODO: 로그인 페이지 접근시 로컬 스토리지 토큰 유무 체크
       // 토큰이 존재한다면 루트 경로(=투두리스트)로 리다이렉트

@@ -1,8 +1,23 @@
 import axios, { AxiosError } from 'axios';
 
+// API 호출 시 사용할 인스턴스
 export const clientAPI = axios.create({
   baseURL: 'http://localhost:8080/',
 });
+
+// API 호출 시 공통 처리
+clientAPI.interceptors.response.use(
+  res => {
+    // 응답 데이터에 token이 있을 경우 localStorage에 세팅
+    if (res.data.token) {
+      localStorage.setItem('authToken', res.data.token);
+    }
+    return res;
+  },
+  error => {
+    return Promise.reject(error);
+  }
+);
 
 // TODO: 비동기 통신 에러처리
 export const handleError = (error: Error | AxiosError) => {

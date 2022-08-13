@@ -27,7 +27,6 @@ const Signin = () => {
   useEffect(() => {
     if (data && data.message) {
       alert(data.message);
-      window.localStorage.setItem('authToken', data.token);
       // window.location.href = '/';
     }
   }, [data]);
