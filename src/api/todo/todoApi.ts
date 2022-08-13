@@ -1,9 +1,9 @@
-import { clientApi } from '../Api';
+import { clientAPI } from '../Api';
 import { AxiosResponse } from 'axios';
 
 const todoAPI = {
   getAll: async (authToken: AuthToken) => {
-    const response: AxiosResponse = await clientApi.get<TodoResponse<TodoData[]>>('/todos', {
+    const response: AxiosResponse = await clientAPI.get<TodoResponse<TodoData[]>>('/todos', {
       headers: {
         Authorization: authToken,
       },
@@ -12,7 +12,7 @@ const todoAPI = {
   },
 
   getById: async ({ id, authToken }: { id: Id; authToken: AuthToken }) => {
-    const response: AxiosResponse = await clientApi.get<TodoResponse<TodoData>>(`/todos/${id}`, {
+    const response: AxiosResponse = await clientAPI.get<TodoResponse<TodoData>>(`/todos/${id}`, {
       headers: {
         Authorization: authToken,
       },
@@ -21,7 +21,7 @@ const todoAPI = {
   },
 
   create: async ({ title, content, authToken }: TodoParam) => {
-    const response: AxiosResponse = await clientApi.post<TodoResponse<TodoData>>(
+    const response: AxiosResponse = await clientAPI.post<TodoResponse<TodoData>>(
       '/todos',
       { title, content },
       {
@@ -34,7 +34,7 @@ const todoAPI = {
   },
 
   update: async ({ title, content, authToken }: TodoParam) => {
-    const response: AxiosResponse = await clientApi.put<TodoResponse<TodoData>>(
+    const response: AxiosResponse = await clientAPI.put<TodoResponse<TodoData>>(
       '/todos',
       { title, content },
       {
@@ -47,7 +47,7 @@ const todoAPI = {
   },
 
   delete: async ({ id, authToken }: { id: Id; authToken: AuthToken }) => {
-    const response: AxiosResponse = await clientApi.delete<TodoResponse<string>>(`/todos/${id}`, {
+    const response: AxiosResponse = await clientAPI.delete<TodoResponse<string>>(`/todos/${id}`, {
       headers: {
         Authorization: authToken,
       },

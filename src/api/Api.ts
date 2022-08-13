@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios';
 
-export const clientApi = axios.create({
+export const clientAPI = axios.create({
   baseURL: 'http://localhost:8080/',
 });
 

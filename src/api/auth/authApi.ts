@@ -1,14 +1,14 @@
-import { clientApi } from '../Api';
+import { clientAPI } from '../Api';
 import { AxiosResponse } from 'axios';
 
 const authAPI = {
   signin: async (body: AuthParam) => {
-    const response: AxiosResponse = await clientApi.post<AuthResponse>('/users/login', body);
+    const response: AxiosResponse = await clientAPI.post<AuthResponse>('/users/login', body);
     return response.data;
   },
 
   signup: async (body: AuthParam) => {
-    const response: AxiosResponse = await clientApi.post<AuthResponse>('/users/create', body);
+    const response: AxiosResponse = await clientAPI.post<AuthResponse>('/users/create', body);
     return response.data;
   },
 };
