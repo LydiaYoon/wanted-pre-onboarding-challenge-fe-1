@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { MdCreate, MdCancel } from 'react-icons/md';
 
 const TodoCreate = () => {
   // TODO: 투두리스트 Create
@@ -12,18 +13,20 @@ const TodoCreate = () => {
   };
 
   return (
-    <TodoCreateContainer>
-      <TodoFormWrapper onSubmit={handleSubmit}>
-        <input name="title" type="text" placeholder="Title" autoFocus />
-        <textarea name="content" placeholder="Content" />
-        <button type="submit" className="success">
-          Submit
-        </button>
-        <button type="reset" className="error">
-          Reset
-        </button>
-      </TodoFormWrapper>
-    </TodoCreateContainer>
+    <>
+      <TodoCreateContainer>
+        <TodoFormWrapper onSubmit={handleSubmit}>
+          <input name="title" type="text" placeholder="Title" autoFocus />
+          <textarea name="content" placeholder="Content" />
+          <button type="submit" className="success">
+            Submit <MdCreate />
+          </button>
+          <button type="reset" className="error">
+            Reset <MdCancel />
+          </button>
+        </TodoFormWrapper>
+      </TodoCreateContainer>
+    </>
   );
 };
 
@@ -33,8 +36,6 @@ const TodoCreateContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  background: #f8f9fa;
-  border-top: 1px solid #e9ecef;
 `;
 
 const TodoFormWrapper = styled.form`

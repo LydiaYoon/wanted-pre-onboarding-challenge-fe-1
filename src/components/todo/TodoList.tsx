@@ -1,15 +1,27 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import TodoItem from './TodoItem';
-import styled from 'styled-components';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
+import * as layoutActions from '../../modules/layout/actions';
+import * as todoActions from '../../modules/todo/actions';
 import { RootState } from '../../modules';
+import TodoItem from './TodoItem';
+import TodoDetail from './TodoDetail';
+import styled from 'styled-components';
+import { PAGE } from '../../enums/commonEnum';
 
 const TodoList = () => {
+  const dispatch = useDispatch();
+  const userData = useSelector((state: RootState) => state.auth.user.data);
   const { todoList } = useSelector((state: RootState) => state.todo);
-  const [expanded, setExpanded] = useState<number | null>(null);
+  const navigate = useNavigate();
 
-  const handleChange = (index: number) => {
-    setExpanded(expanded === index ? null : index);
+  const handleClick = (index: number, id: string) => {
+    if (userData && userData.token) {
+      dispatch(todoActions.getTodoByIdAsync.request({ id, authToken: userData.token }));
+
+      navigate(`${PAGE.TODO_LIST}?id=${id}`);
+      dispatch(layoutActions.openModal({ isOpen: true, element: <TodoDetail /> }));
+    }
   };
 
   return (
@@ -17,15 +29,7 @@ const TodoList = () => {
       {todoList.data &&
         todoList.data.length > 0 &&
         todoList.data.map((todo, index) => (
-          <TodoItem
-            key={todo.id}
-            index={index}
-            id={todo.id}
-            title={todo.title}
-            content={todo.content}
-            expanded={expanded}
-            handleChange={handleChange}
-          />
+          <TodoItem key={todo.id} index={index} id={todo.id} title={todo.title} handleClick={handleClick} />
         ))}
     </TodoListContainer>
   );

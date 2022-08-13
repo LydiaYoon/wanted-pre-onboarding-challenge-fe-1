@@ -69,7 +69,7 @@ const AuthContainer = styled.div`
   }
 
   .auth-form-wrapper {
-    padding: 20px 32px;
+    margin: 20px 32px;
     display: flex;
     flex-direction: column;
   }
