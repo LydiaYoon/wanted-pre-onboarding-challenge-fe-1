@@ -13,7 +13,7 @@ const App = () => {
           <Route path="/" element={<Navigate replace to="/todo" />} />
 
           <Route path="/auth/*" element={<AuthTemplate />} />
-          <Route path="/todo" element={<TodoTemplate />} />
+          <Route path="/todos" element={<TodoTemplate />} />
         </Routes>
       </div>
     </>
