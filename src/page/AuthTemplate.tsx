@@ -6,9 +6,11 @@ import Header from '../components/common/Header';
 import Signin from '../components/auth/Signin';
 import Signup from '../components/auth/Signup';
 import styled from 'styled-components';
+import { ProtectedRoute } from '../Router';
+import { ALERT_MESSAGE, PAGE } from '../enums/commonEnum';
 
 const AuthTemplate = () => {
-  const authToken = localStorage.getItem('authToken');
+  const authToken = JSON.parse(localStorage.getItem('authToken') as string);
 
   const dispatch = useDispatch();
 
@@ -16,18 +18,24 @@ const AuthTemplate = () => {
     dispatch(layoutActions.setHeaderTitle('Authentication'));
   }, []);
 
-  useEffect(() => {
-    if (authToken) {
-      // TODO: 로그인 페이지 접근시 로컬 스토리지 토큰 유무 체크
-      // 토큰이 존재한다면 루트 경로(=투두리스트)로 리다이렉트
-    }
-  }, [authToken]);
-
   return (
     <AuthContainer>
       <Header />
       <Routes>
         <Route path="signin" element={<Signin />} />
+
+        <Route
+          path="signup"
+          element={
+            <ProtectedRoute
+              isAllowed={!authToken || (!!authToken && !authToken.token)}
+              redirectPath={PAGE.TODO_LIST}
+              callback={() => alert(ALERT_MESSAGE.ALREADY_SIGN_IN)}
+            >
+              <Signup />
+            </ProtectedRoute>
+          }
+        ></Route>
         <Route path="signup" element={<Signup />} />
       </Routes>
     </AuthContainer>
