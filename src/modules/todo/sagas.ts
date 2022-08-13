@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { AxiosError } from 'axios';
 import { call, put, takeEvery } from 'redux-saga/effects';
 import todoAPI, { TodoData, TodoResponse } from '../../api/todo/todoApi';
 import { getTodosAsync, getTodoByIdAsync, createTodoAsync, updateTodoAsync, deleteTodoAsync } from './actions';
@@ -12,7 +12,7 @@ function* getTodosSaga({ payload }: ReturnType<typeof getTodosAsync.request>) {
     if (!response.data) throw new Error('There is no response result data.');
     yield put(getTodosAsync.success(response.data));
   } catch (e) {
-    if (axios.isAxiosError(e)) {
+    if (e instanceof AxiosError) {
       yield put(getTodosAsync.failure(e));
     }
   }
@@ -24,7 +24,7 @@ function* getTodoByIdSaga({ payload }: ReturnType<typeof getTodoByIdAsync.reques
     if (!response.data) throw new Error('There is no response result data.');
     yield put(getTodoByIdAsync.success(response.data));
   } catch (e) {
-    if (axios.isAxiosError(e)) {
+    if (e instanceof AxiosError) {
       yield put(getTodoByIdAsync.failure(e));
     }
   }
@@ -36,7 +36,7 @@ function* createTodoSaga({ payload }: ReturnType<typeof createTodoAsync.request>
     if (!response.data) throw new Error('There is no response result data.');
     yield put(createTodoAsync.success(response.data));
   } catch (e) {
-    if (axios.isAxiosError(e)) {
+    if (e instanceof AxiosError) {
       yield put(createTodoAsync.failure(e));
     }
   }
@@ -48,7 +48,7 @@ function* updateTodoSaga({ payload }: ReturnType<typeof updateTodoAsync.request>
     if (!response.data) throw new Error('There is no response result data.');
     yield put(updateTodoAsync.success(response.data));
   } catch (e) {
-    if (axios.isAxiosError(e)) {
+    if (e instanceof AxiosError) {
       yield put(updateTodoAsync.failure(e));
     }
   }
@@ -60,7 +60,7 @@ function* deleteTodoSaga({ payload }: ReturnType<typeof deleteTodoAsync.request>
     if (!response.data) throw new Error('There is no response result data.');
     yield put(deleteTodoAsync.success(response.data));
   } catch (e) {
-    if (axios.isAxiosError(e)) {
+    if (e instanceof AxiosError) {
       yield put(deleteTodoAsync.failure(e));
     }
   }

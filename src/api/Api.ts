@@ -6,7 +6,7 @@ export const clientApi = axios.create({
 
 // TODO: 비동기 통신 에러처리
 export const handleError = (error: Error | AxiosError) => {
-  if (axios.isAxiosError(error)) {
+  if (error instanceof AxiosError) {
     if (error.response) {
       console.log(error.response.data);
       console.log(error.response.status);
