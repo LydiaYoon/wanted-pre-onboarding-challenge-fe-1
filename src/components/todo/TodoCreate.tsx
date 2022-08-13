@@ -1,28 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const TodoCreate = () => {
-  const [title, setTitle] = useState<string>('');
-  const [content, setContent] = useState<string>('');
-
-  const onChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value);
-  };
-
-  const onChangeContent = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(event.target.value);
-  };
-
   // TODO: 투두리스트 Create
+  const handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    console.log(form.get('title'));
+    console.log(form.get('content'));
+    // console.log('투두 생성 API 호출');
+  };
 
   return (
     <TodoCreateContainer>
-      <TodoFormWrapper>
-        <div className="header">
-          <input className="title" type="text" placeholder="Title" value={title} onChange={onChangeTitle} autoFocus />
-          <button className="success">+</button>
-        </div>
-        <textarea className="content" placeholder="Content" value={content} onChange={onChangeContent} />
+      <TodoFormWrapper onSubmit={handleSubmit}>
+        <input name="title" type="text" placeholder="Title" autoFocus />
+        <textarea name="content" placeholder="Content" />
+        <button type="submit" className="success">
+          Submit
+        </button>
+        <button type="reset" className="error">
+          Reset
+        </button>
       </TodoFormWrapper>
     </TodoCreateContainer>
   );
@@ -32,37 +31,30 @@ export default TodoCreate;
 
 const TodoCreateContainer = styled.div`
   display: flex;
-  padding: 20px 32px;
+  flex-direction: column;
+  height: 100%;
   background: #f8f9fa;
   border-top: 1px solid #e9ecef;
-  border-bottom-left-radius: 16px;
-  border-bottom-right-radius: 16px;
 `;
 
-const TodoFormWrapper = styled.div`
+const TodoFormWrapper = styled.form`
   display: flex;
   flex-direction: column;
   flex: 1;
 
-  .header {
-    display: flex;
-
-    input.title {
-      padding: 12px;
-      border-radius: 4px;
-      border: 1px solid #dee2e6;
-      width: 100%;
-      font-size: 18px;
-      box-sizing: border-box;
-    }
-  }
-
-  .content {
+  input {
     padding: 12px;
     border-radius: 4px;
     border: 1px solid #dee2e6;
-    width: 100%;
-    height: 150px;
+    font-size: 18px;
+    box-sizing: border-box;
+  }
+
+  textarea {
+    padding: 12px;
+    border-radius: 4px;
+    border: 1px solid #dee2e6;
+    height: 100%;
     font-size: 18px;
     box-sizing: border-box;
     resize: none;

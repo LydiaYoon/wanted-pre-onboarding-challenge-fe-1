@@ -1,5 +1,6 @@
 import React from 'react';
 import Router from './Router';
+import Modal from './components/common/Modal';
 import GlobalStyle from './styles/GlobalStyle';
 
 const App = () => {
@@ -8,6 +9,7 @@ const App = () => {
       <GlobalStyle />
       <div className="contents">
         <Router />
+        <Modal />
       </div>
     </>
   );

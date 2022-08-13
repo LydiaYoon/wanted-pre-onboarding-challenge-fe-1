@@ -3,10 +3,10 @@ import { useDispatch } from 'react-redux';
 import * as layoutActions from '../modules/layout/actions';
 import * as todoActions from '../modules/todo/actions';
 import Header from '../components/common/Header';
-import TodoCreate from '../components/todo/TodoCreate';
 import TodoList from '../components/todo/TodoList';
-import styled from 'styled-components';
+import TodoCreate from '../components/todo/TodoCreate';
 import FloatingButton from '../components/common/FloatingButton';
+import styled from 'styled-components';
 import { PAGE } from '../enums/commonEnum';
 
 const TodoTemplate = () => {
@@ -26,14 +26,17 @@ const TodoTemplate = () => {
     }
   }, [authToken]);
 
+  const onClickButton = (event: React.MouseEvent<HTMLButtonElement>) => {
+    dispatch(layoutActions.openModal({ isOpen: true, element: <TodoCreate /> }));
+  };
+
   return (
     <>
       <TodoContainer>
         <Header />
         <TodoList />
-        <TodoCreate />
       </TodoContainer>
-      <FloatingButton />
+      <FloatingButton handleClick={onClickButton} />
     </>
   );
 };
