@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { Link, useSearchParams } from 'react-router-dom';
 import * as layoutActions from '../modules/layout/actions';
 import * as todoActions from '../modules/todo/actions';
 import Header from '../components/common/Header';
@@ -13,15 +14,21 @@ const TodoTemplate = () => {
   const authToken = localStorage.getItem('authToken');
   const dispatch = useDispatch();
 
+  const [searchParams, setSearchParams] = useSearchParams();
+
   useEffect(() => {
     dispatch(layoutActions.setPage(PAGE.TODO_LIST));
     dispatch(layoutActions.setHeaderTitle('TO DO LIST'));
+
+    const id = searchParams.get('id');
+    console.log(id);
   }, []);
 
   useEffect(() => {
     if (authToken) {
       // TODO: 투두리스트 페이지 접근시 로컬 스토리지 토큰 유효성 체크
       // 유효하지 않다면 사용자에게 알리고 로그인 페이지로 리다이렉트
+      // dispatch(authActions.setAuthToken(authToken));
       dispatch(todoActions.getTodosAsync.request(authToken));
     }
   }, [authToken]);
@@ -36,6 +43,7 @@ const TodoTemplate = () => {
         <Header />
         <TodoList />
       </TodoContainer>
+      <Link to={PAGE.SIGN_IN}>로그아웃</Link>
       <FloatingButton handleClick={onClickButton} />
     </>
   );

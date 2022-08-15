@@ -6,6 +6,7 @@ import { RootState } from '../../modules';
 import axios from 'axios';
 import { PAGE } from '../../enums/commonEnum';
 import { REGEX_EMAIL, REGEX_PASSWORD } from '../../enums/regex';
+import { useNavigate } from 'react-router';
 
 type InputType = {
   value: string;
@@ -21,6 +22,8 @@ const Signup = () => {
   const [inputPasswordCheck, setInputPasswordCheck] = useState<{ isValid: boolean | null }>({ isValid: null });
   const [isValidButton, setIsValidButton] = useState<boolean>(false);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     dispatch(layoutActions.setPage(PAGE.SIGN_IN));
   }, []);
@@ -28,7 +31,7 @@ const Signup = () => {
   useEffect(() => {
     if (data && data.message) {
       alert(data.message);
-      window.location.href = '/';
+      // navigate(PAGE.TODO_LIST);
     }
   }, [data]);
 

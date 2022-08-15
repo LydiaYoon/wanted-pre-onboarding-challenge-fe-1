@@ -6,7 +6,7 @@ import { RootState } from '../../modules';
 import axios from 'axios';
 import { PAGE } from '../../enums/commonEnum';
 import { REGEX_EMAIL, REGEX_PASSWORD } from '../../enums/regex';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 type InputType = {
   email: string;
@@ -21,6 +21,8 @@ const Signin = () => {
   const [input, setInput] = useState<InputType>({ email: '', password: '', isValid: null });
   const [isValidButton, setIsValidButton] = useState<boolean>(false);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     dispatch(layoutActions.setPage(PAGE.SIGN_IN));
   }, []);
@@ -28,7 +30,7 @@ const Signin = () => {
   useEffect(() => {
     if (data && data.message) {
       alert(data.message);
-      // window.location.href = '/';
+      // navigate(PAGE.TODO_LIST);
     }
   }, [data]);
 
