@@ -1,0 +1,55 @@
+{
+  "todos": [
+    {
+      "title": "Week 1-1 학습주제",
+      "content": "개발자 취업 과정에서 기술 과제가 갖는 의미",
+      "id": "XR_5Cc59-mRo3tvEcexQm",
+      "createdAt": "2022-08-07T12:23:10.848Z",
+      "updatedAt": "2022-08-07T12:23:10.848Z"
+    },
+    {
+      "title": "Week 1-2 학습주제",
+      "content": "로직이 아닌 구조를 통해 문제를 접근하는 방법",
+      "id": "PyX5cuzoLmzKzbGiunOl7",
+      "createdAt": "2022-08-07T12:23:27.112Z",
+      "updatedAt": "2022-08-07T12:23:27.112Z"
+    },
+    {
+      "title": "Week 2-1 학습주제",
+      "content": "관심사에 따른 폴더 및 파일 분리<br/> 깔끔한 서버 상태 관리를 위한 React Query 활용법",
+      "id": "K9KlGEMxIY--gQsvIstq1",
+      "createdAt": "2022-08-07T12:23:40.431Z",
+      "updatedAt": "2022-08-07T12:23:40.431Z"
+    },
+    {
+      "title": "Week 2-2 학습주제",
+      "content": "과제를 위해 작성한 코드의 의도를 협업자가 쉽게 이해하도록 돕는 방법",
+      "id": "-pm0nMtyMOJKpoQn0jVdA",
+      "createdAt": "2022-08-07T12:23:55.797Z",
+      "updatedAt": "2022-08-07T12:23:55.797Z"
+    }
+  ],
+  "users": [
+    {
+      "email": "aaa@aaa.com",
+      "password": "12341234",
+      "id": "JyPHovF3DYqlTLQPcW3-B",
+      "createdAt": "2022-08-07T12:18:45.563Z",
+      "updatedAt": "2022-08-07T12:18:45.563Z"
+    },
+    {
+      "email": "bbb@bbb.com",
+      "password": "12341234",
+      "id": "gW1R06ZDn_qrNQxX6GZFG",
+      "createdAt": "2022-08-09T17:26:17.736Z",
+      "updatedAt": "2022-08-09T17:26:17.736Z"
+    },
+    {
+      "email": "ccc@ccc.com",
+      "password": "12341234",
+      "id": "QZSjRPNvbL4NwmmX1SB0A",
+      "createdAt": "2022-08-13T10:47:35.364Z",
+      "updatedAt": "2022-08-13T10:47:35.364Z"
+    }
+  ]
+}
