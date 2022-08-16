@@ -15,20 +15,18 @@
 
 ## 2. 실행 방법
 
-### 2-1) Backend API 실행
+### 2-1) [Back-end API](./server/README.md) 실행
 
-🔗 [Back-end API Repository](https://github.com/LydiaYoon/wanted-pre-onboarding-challenge-fe-1-api)
-
-```
-$ yarn  
-$ yarn start # http://localhost:8080  
+```bash
+server $ yarn  
+server $ yarn start # http://localhost:8080  
 ```
 
 
 ### 2-2) Client 실행
-```
-$ npm install
-$ npm start # http://localhost:3000
+```bash
+client $ yarn
+client $ yarn start # http://localhost:3000
 ```
 
 #### 회원가입
