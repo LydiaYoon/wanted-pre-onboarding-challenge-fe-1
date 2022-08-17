@@ -1,20 +1,10 @@
-import React, { useEffect } from 'react';
-import { Navigate, Route, Routes, Outlet } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import AuthTemplate from './page/AuthTemplate';
-import TodoTemplate from './page/TodoTemplate';
-import * as authActions from './modules/auth/actions';
+import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
 import { ALERT_MESSAGE, PAGE } from './enums/commonEnum';
+import Auth from './pages/Auth';
+import Todos from './pages/Todos';
 
 const Router = () => {
-  const dispatch = useDispatch();
   const authToken = JSON.parse(localStorage.getItem('authToken') as string);
-
-  useEffect(() => {
-    if (authToken) {
-      dispatch(authActions.setAuthToken(authToken));
-    }
-  }, [authToken]);
 
   return (
     <>
@@ -29,7 +19,7 @@ const Router = () => {
               redirectPath={PAGE.TODO_LIST}
               callback={() => alert(ALERT_MESSAGE.ALREADY_SIGN_IN)}
             >
-              <AuthTemplate />
+              <Auth />
             </ProtectedRoute>
           }
         />
@@ -42,7 +32,7 @@ const Router = () => {
               redirectPath={PAGE.SIGN_IN}
               callback={() => alert(ALERT_MESSAGE.REQUIRE_SIGN_IN)}
             >
-              <TodoTemplate />
+              <Todos />
             </ProtectedRoute>
           }
         />

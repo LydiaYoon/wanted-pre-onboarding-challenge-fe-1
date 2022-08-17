@@ -5,7 +5,7 @@ export const clientAPI = axios.create({
   baseURL: 'http://localhost:8080/',
 });
 
-// API 호출 시 공통 처리
+// API 호출 후 응답 공통 처리
 clientAPI.interceptors.response.use(
   res => {
     // 응답 데이터에 token이 있을 경우 localStorage에 세팅

@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import * as layoutActions from '../../modules/layout/actions';
-import * as authActions from '../../modules/auth/actions';
-import { RootState } from '../../modules';
-import axios from 'axios';
-import { PAGE } from '../../enums/commonEnum';
-import { REGEX_EMAIL, REGEX_PASSWORD } from '../../enums/regex';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { PAGE } from '../../../enums/commonEnum';
+import { REGEX_EMAIL, REGEX_PASSWORD } from '../../../enums/regex';
+import * as layoutActions from '../../../modules/layout/actions';
 
 type InputType = {
   email: string;
@@ -16,7 +13,6 @@ type InputType = {
 
 const Signin = () => {
   const dispatch = useDispatch();
-  const { data, error } = useSelector((state: RootState) => state.auth.user);
 
   const [input, setInput] = useState<InputType>({ email: '', password: '', isValid: null });
   const [isValidButton, setIsValidButton] = useState<boolean>(false);
@@ -26,21 +22,6 @@ const Signin = () => {
   useEffect(() => {
     dispatch(layoutActions.setPage(PAGE.SIGN_IN));
   }, []);
-
-  useEffect(() => {
-    if (data && data.message) {
-      alert(data.message);
-      // navigate(PAGE.TODO_LIST);
-    }
-  }, [data]);
-
-  useEffect(() => {
-    if (error && axios.isAxiosError(error)) {
-      if (error.response && error.response.data) {
-        alert(error.response.data.details);
-      }
-    }
-  }, [error]);
 
   useEffect(() => {
     const timeid = setTimeout(() => {
@@ -74,7 +55,7 @@ const Signin = () => {
       return;
     }
 
-    dispatch(authActions.signinAsync.request(input));
+    // TODO: 로그인 Request
   };
 
   const checkValidate = (email: string, password: string) => {

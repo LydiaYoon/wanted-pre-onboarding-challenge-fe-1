@@ -1,6 +1,5 @@
-import React from 'react';
+import Modal from './components/common/Modal/Modal';
 import Router from './Router';
-import Modal from './components/common/Modal';
 import GlobalStyle from './styles/GlobalStyle';
 
 const App = () => {
