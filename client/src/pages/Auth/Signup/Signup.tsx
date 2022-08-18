@@ -1,104 +1,94 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router';
+import { useMutation } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+import { ErrorResponse } from '../../../api/Api';
+import authAPI, { AuthParam, AuthResponse } from '../../../api/auth/authApi';
 import { PAGE } from '../../../enums/commonEnum';
 import { REGEX_EMAIL, REGEX_PASSWORD } from '../../../enums/regex';
-import * as layoutActions from '../../../modules/layout/actions';
 
-type InputType = {
-  value: string;
-  isValid: boolean | null;
+type FormInputs = {
+  email: string;
+  password: string;
+  passwordConfirm: string;
 };
 
 const Signup = () => {
-  const dispatch = useDispatch();
+  const {
+    register,
+    getValues,
+    handleSubmit,
+    setError,
+    formState: { errors, isValid },
+  } = useForm<FormInputs>({
+    mode: 'onChange',
+  });
 
-  const [inputEmail, setInputEmail] = useState<InputType>({ value: '', isValid: null });
-  const [inputPassword, setInputPassword] = useState<InputType>({ value: '', isValid: null });
-  const [inputPasswordCheck, setInputPasswordCheck] = useState<{ isValid: boolean | null }>({ isValid: null });
-  const [isValidButton, setIsValidButton] = useState<boolean>(false);
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    dispatch(layoutActions.setPage(PAGE.SIGN_IN));
-  }, []);
-
-  useEffect(() => {
-    if (inputEmail.isValid != null && inputPassword.isValid != null && inputPasswordCheck.isValid != null) {
-      checkValidate(inputEmail.isValid, inputPassword.isValid, inputPasswordCheck.isValid);
+  const onSubmit: SubmitHandler<FormInputs> = data => {
+    if (isValid) {
+      mutate(data);
     }
-  }, [inputEmail, inputPassword, inputPasswordCheck]);
-
-  const onChangeEmailHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-    setInputEmail(prevState => {
-      return { ...prevState, value: value, isValid: REGEX_EMAIL.test(value) };
-    });
   };
 
-  const onChangePasswordHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-    setInputPassword(prevState => {
-      return { ...prevState, value: value, isValid: REGEX_PASSWORD.test(value) };
-    });
+  const onSuccess = (response: AuthResponse) => {
+    console.log(response);
   };
 
-  const onChangePasswordCheckHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-    setInputPasswordCheck(prevState => {
-      return {
-        ...prevState,
-        isValid: inputPassword.isValid && inputPassword.value === value,
-      };
-    });
+  const onError = ({ response }: AxiosError<ErrorResponse>) => {
+    console.log(response?.data.details);
+    setError('email', { type: 'signupFailure', message: '이미 존재하는 유저입니다.' });
   };
 
-  const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    if (!isValidButton) {
-      return;
-    }
-
-    // TODO: 회원가입 Request
-  };
-
-  const checkValidate = (isEmailValid: boolean, isPasswordValid: boolean, isPasswordCheckValid: boolean) => {
-    const validation: boolean = isEmailValid && isPasswordValid && isPasswordCheckValid;
-    setIsValidButton(validation);
-  };
+  const { mutate } = useMutation<AuthResponse, AxiosError<ErrorResponse>, AuthParam>(
+    (user: AuthParam) => authAPI.signup(user),
+    { onSuccess, onError }
+  );
 
   return (
     <div className="auth-form-wrapper">
       <h3>회원가입</h3>
-      <form className="auth-form" onSubmit={onSubmitHandler}>
-        <input type="text" name="email" placeholder="email" onChange={onChangeEmailHandler} />
-        {/* onChange에서 확인 불가능해서 주석처리 */}
-        {/* {inputEmail.isValid && <p className="valid">사용가능한 이메일입니다.</p>} */}
-        {inputEmail.isValid !== null && !inputEmail.isValid && <p className="invalid">잘못된 이메일 형식입니다.</p>}
-
-        <input type="password" name="password" placeholder="password" onChange={onChangePasswordHandler} />
-        {inputPassword.isValid && <p className="valid">사용가능한 비밀번호 입니다.</p>}
-        {inputPassword.isValid !== null && !inputPassword.isValid && (
-          <p className="invalid">비밀번호는 8~16자로 입력해주세요.</p>
-        )}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <input
+          type="text"
+          {...register('email', {
+            required: true,
+            pattern: { value: REGEX_EMAIL, message: '잘못된 이메일 형식입니다.' },
+          })}
+          placeholder="email"
+        />
+        {errors.email?.message && <p className="invalid">{errors.email.message}</p>}
 
         <input
           type="password"
-          name="passwordCheck"
-          placeholder="confirm password"
-          onChange={onChangePasswordCheckHandler}
+          {...register('password', {
+            required: true,
+            pattern: { value: REGEX_PASSWORD, message: '비밀번호는 8~16자로 입력해주세요.' },
+          })}
+          placeholder="password"
         />
-        {inputPasswordCheck.isValid && <p className="valid">비밀번호가 일치합니다.</p>}
-        {inputPasswordCheck.isValid !== null && !inputPasswordCheck.isValid && (
-          <p className="invalid">비밀번호를 다시 입력해주세요.</p>
-        )}
+        {!errors.password && getValues('password') && <p className="valid">사용가능한 비밀번호 입니다.</p>}
+        {errors.password?.message && <p className="invalid">{errors.password.message}</p>}
 
-        <button className="success" disabled={!isValidButton}>
-          Sign up
+        <input
+          type="password"
+          {...register('passwordConfirm', {
+            required: true,
+            validate: {
+              test: v => v === getValues('password') || '비밀번호를 다시 입력해주세요.',
+            },
+          })}
+          placeholder="confirm password"
+        />
+        {!errors.passwordConfirm && getValues('passwordConfirm') && <p className="valid">비밀번호가 일치합니다.</p>}
+        {errors.passwordConfirm?.message && <p className="invalid">{errors.passwordConfirm.message}</p>}
+
+        <button className="button success" disabled={!isValid}>
+          Sign in
         </button>
       </form>
+      <div className="link">
+        <Link to={PAGE.SIGN_IN}>로그인</Link>
+      </div>
     </div>
   );
 };

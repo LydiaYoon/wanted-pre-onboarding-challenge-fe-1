@@ -139,9 +139,7 @@ const GlobalStyle = createGlobalStyle`
   }  
 
   .textbox,
-  input[type="text"],
-  input[type="email"],
-  input[type="password"] {
+  input {
     padding: 12px;
     border-radius: 4px;
     border: 1px solid #dee2e6;

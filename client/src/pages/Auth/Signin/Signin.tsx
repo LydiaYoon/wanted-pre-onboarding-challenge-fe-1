@@ -1,86 +1,79 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+import { ErrorResponse } from '../../../api/Api';
+import authAPI, { AuthParam, AuthResponse } from '../../../api/auth/authApi';
 import { PAGE } from '../../../enums/commonEnum';
 import { REGEX_EMAIL, REGEX_PASSWORD } from '../../../enums/regex';
-import * as layoutActions from '../../../modules/layout/actions';
 
-type InputType = {
+type FormInputs = {
   email: string;
   password: string;
-  isValid: boolean | null;
 };
 
 const Signin = () => {
-  const dispatch = useDispatch();
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors, isValid },
+  } = useForm<FormInputs>({
+    mode: 'onChange',
+  });
 
-  const [input, setInput] = useState<InputType>({ email: '', password: '', isValid: null });
-  const [isValidButton, setIsValidButton] = useState<boolean>(false);
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    dispatch(layoutActions.setPage(PAGE.SIGN_IN));
-  }, []);
-
-  useEffect(() => {
-    const timeid = setTimeout(() => {
-      checkValidate(input.email, input.password);
-    }, 300);
-    return () => {
-      clearTimeout(timeid);
-    };
-  }, [input.email, input.password]);
-
-  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setInput(prevState => {
-      return { ...prevState, [name]: value };
-    });
-  };
-
-  const onClickHandler = () => {
-    setInput(prevState => {
-      return { ...prevState, isValid: null };
-    });
-  };
-
-  const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    if (!REGEX_EMAIL.test(input.email) || !REGEX_PASSWORD.test(input.password)) {
-      setInput(prevState => {
-        return { ...prevState, isValid: false };
-      });
-      return;
+  const onSubmit: SubmitHandler<FormInputs> = data => {
+    if (isValid) {
+      mutate(data);
     }
-
-    // TODO: 로그인 Request
   };
 
-  const checkValidate = (email: string, password: string) => {
-    const validation: boolean = (email && password) as unknown as boolean;
-    setIsValidButton(validation);
+  const onSuccess = (response: AuthResponse) => {
+    console.log(response);
+    //navigator('/');
   };
+
+  const onError = ({ response }: AxiosError<ErrorResponse>) => {
+    console.log(response?.data.details);
+    setError('password', { type: 'signinFailure', message: '이메일 혹은 비밀번호가 잘못되었습니다.' });
+  };
+
+  const { mutate } = useMutation<AuthResponse, AxiosError<ErrorResponse>, AuthParam>(
+    (user: AuthParam) => authAPI.signin(user),
+    { onSuccess, onError }
+  );
 
   return (
     <div className="auth-form-wrapper">
       <h3>로그인</h3>
-      <form className="auth-form" onSubmit={onSubmitHandler}>
-        <input type="text" name="email" placeholder="email" onChange={onChangeHandler} onClick={onClickHandler} />
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <input
+          type="text"
+          {...register('email', {
+            required: true,
+            pattern: { value: REGEX_EMAIL, message: '잘못된 이메일 형식입니다.' },
+          })}
+          placeholder="email"
+        />
+        {errors.email?.message && <p className="invalid">{errors.email.message}</p>}
+
         <input
           type="password"
-          name="password"
+          {...register('password', {
+            required: true,
+            pattern: { value: REGEX_PASSWORD, message: '비밀번호는 8~16자입니다.' },
+          })}
           placeholder="password"
-          onChange={onChangeHandler}
-          onClick={onClickHandler}
         />
-        {input.isValid !== null && !input.isValid && <p className="invalid">이메일 혹은 비밀번호가 잘못되었습니다.</p>}
-        <button className="button" disabled={!isValidButton}>
+        {errors.password?.message && <p className="invalid">{errors.password.message}</p>}
+
+        <button className="button" disabled={!isValid}>
           Sign in
         </button>
-        <Link to={PAGE.SIGN_UP}>회원가입</Link>
       </form>
+      <div className="link">
+        <Link to={PAGE.SIGN_UP}>회원가입</Link>
+      </div>
     </div>
   );
 };

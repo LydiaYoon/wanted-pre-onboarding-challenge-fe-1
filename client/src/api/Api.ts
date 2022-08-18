@@ -16,6 +16,7 @@ clientAPI.interceptors.response.use(
     return res;
   },
   error => {
+    handleError(error);
     return Promise.reject(error);
   }
 );
