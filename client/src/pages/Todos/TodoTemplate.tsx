@@ -6,7 +6,7 @@ import Header from '../../components/common/Header/Header';
 import { PAGE } from '../../enums/commonEnum';
 import * as layoutActions from '../../modules/layout/actions';
 import TodoCreate from './TodoCreate/TodoCreate';
-import TodoList from './Todos/TodoList';
+import TodoList from './TodoList/TodoList';
 import TodoContainer from './TodoTemplate.style';
 
 const TodoTemplate = () => {
