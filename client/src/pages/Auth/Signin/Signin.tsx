@@ -15,6 +15,7 @@ type FormInputs = {
 const Signin = () => {
   const {
     register,
+    getValues,
     handleSubmit,
     setError,
     formState: { errors, isValid },
@@ -54,6 +55,7 @@ const Signin = () => {
             pattern: { value: REGEX_EMAIL, message: '잘못된 이메일 형식입니다.' },
           })}
           placeholder="email"
+          className={errors.email?.message ? 'error' : ''}
         />
         {errors.email?.message && <p className="invalid">{errors.email.message}</p>}
 
@@ -64,6 +66,7 @@ const Signin = () => {
             pattern: { value: REGEX_PASSWORD, message: '비밀번호는 8~16자입니다.' },
           })}
           placeholder="password"
+          className={!errors.password && getValues('password') ? 'success' : errors.password?.message ? 'error' : ''}
         />
         {errors.password?.message && <p className="invalid">{errors.password.message}</p>}
 

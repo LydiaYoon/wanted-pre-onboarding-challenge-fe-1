@@ -55,6 +55,7 @@ const Signup = () => {
             pattern: { value: REGEX_EMAIL, message: '잘못된 이메일 형식입니다.' },
           })}
           placeholder="email"
+          className={errors.email?.message ? 'error' : ''}
         />
         {errors.email?.message && <p className="invalid">{errors.email.message}</p>}
 
@@ -65,6 +66,7 @@ const Signup = () => {
             pattern: { value: REGEX_PASSWORD, message: '비밀번호는 8~16자로 입력해주세요.' },
           })}
           placeholder="password"
+          className={!errors.password && getValues('password') ? 'success' : errors.password?.message ? 'error' : ''}
         />
         {!errors.password && getValues('password') && <p className="valid">사용가능한 비밀번호 입니다.</p>}
         {errors.password?.message && <p className="invalid">{errors.password.message}</p>}
@@ -78,6 +80,13 @@ const Signup = () => {
             },
           })}
           placeholder="confirm password"
+          className={
+            !errors.passwordConfirm && getValues('passwordConfirm')
+              ? 'success'
+              : errors.passwordConfirm?.message
+              ? 'error'
+              : ''
+          }
         />
         {!errors.passwordConfirm && getValues('passwordConfirm') && <p className="valid">비밀번호가 일치합니다.</p>}
         {errors.passwordConfirm?.message && <p className="invalid">{errors.passwordConfirm.message}</p>}

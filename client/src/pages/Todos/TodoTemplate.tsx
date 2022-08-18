@@ -10,7 +10,6 @@ import TodoList from './TodoList/TodoList';
 import TodoContainer from './TodoTemplate.style';
 
 const TodoTemplate = () => {
-  const authToken = JSON.parse(localStorage.getItem('authToken') as string);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,13 +21,17 @@ const TodoTemplate = () => {
     dispatch(layoutActions.openModal({ isOpen: true, element: <TodoCreate /> }));
   };
 
+  // TODO: 로그아웃 처리
+
   return (
     <>
       <TodoContainer>
         <Header />
         <TodoList />
+        <div className="link">
+          <Link to={PAGE.SIGN_IN}>로그아웃</Link>
+        </div>
       </TodoContainer>
-      <Link to={PAGE.SIGN_IN}>로그아웃</Link>
       <FloatingButton handleClick={onClickButton} />
     </>
   );

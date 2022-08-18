@@ -17,10 +17,56 @@ const GlobalStyle = createGlobalStyle`
   }
 
   :root {
-    --button-color: white;
-    --button-bg-color: #6b6bff;
-    --button-hover-bg-color: #8787ff;
-    --button-active-bg-color: #5252fa;
+    --color-black: #495057;
+    --color-invalid: #e57373;
+    --color-valid: #81c784;
+
+    --button-main: #6b6bff;
+    --button-light: #8787ff;
+    --button-dark: #5252fa;
+    --button-disabled: #ccc;
+
+    --input-main: #dee2e6;
+    --input-light: #eee;
+    --input-dark: #c0c0c0;
+  }
+
+  .secondary {
+    --button-main: #ce93d8;
+    --button-light: #f3e5f5;
+    --button-dark: #ab47bc;
+  }
+  
+  .error {
+    --button-main: #ff6b6b;
+    --button-light: #ff8787;
+    --button-dark: #fa5252;
+
+    --input-main: #ff6b6b;
+    --input-light: #ff8787;
+    --input-dark: #fa5252;
+  }
+  
+  .warning {
+    --button-main: #ffd26b;
+    --button-light: #ffde87;
+    --button-dark: #facf52;
+  }  
+
+  .info {
+    --button-main: #29b6f6;
+    --button-light: #4fc3f7;
+    --button-dark: #0288d1;
+  }
+
+  .success {
+    --button-main: #38d9a9;
+    --button-light: #63e6be;
+    --button-dark: #20c997;
+
+    --input-main: #38d9a9;
+    --input-light: #63e6be;
+    --input-dark: #20c997;
   }
 
   body,
@@ -62,14 +108,15 @@ const GlobalStyle = createGlobalStyle`
 
   p {
     margin: 0;
+    color: var(--color-black);
   }
 
-  p.invalid {
-    color: #ff8787;
+  .invalid {
+    --color-black: #e57373;
   }
   
-  p.valid {
-    color: #888;
+  .valid {
+    --color-black: #81c784;
   }
 
   #app {
@@ -98,13 +145,13 @@ const GlobalStyle = createGlobalStyle`
     text-align: center;
     text-decoration: none;
 
-    color: var(--button-color);
-    background: var(--button-bg-color);
+    color: white;
+    background: var(--button-main);
     &:hover, &:focus {
-      var(--button-hover-bg-color);
+      background: var(--button-light);
     }
     &:active {
-      background: var(--button-active-bg-color);
+      background: var(--button-dark);
     }
 
     border: none;
@@ -115,36 +162,23 @@ const GlobalStyle = createGlobalStyle`
     transition: 0.5s;
 
     &:disabled {
-      background: #ccc;
+      background: var(--button-disabled);
       cursor: default;
     }
   }
 
-  button.success {
-    --button-bg-color: #38d9a9;
-    --button-hover-bg-color: #63e6be;
-    --button-active-bg-color: #20c997;
-  }
-  
-  button.error {
-    --button-bg-color: #ff6b6b;
-    --button-hover-bg-color: #ff8787;
-    --button-active-bg-color: #fa5252;
-  }
-  
-  button.warning {
-    --button-bg-color: #ffc107;
-    --button-hover-bg-color: #e0a800;
-    --button-active-bg-color: #fafa52;
-  }  
-
-  .textbox,
-  input {
+  input,
+  textarea {
     padding: 12px;
     border-radius: 4px;
-    border: 1px solid #dee2e6;
+    color: var(--color-black);
+    background: white;
+    border: 1px solid var(--input-main);
+    &:hover, &:focus {
+      border: 1px solid var(--input-dark);
+    }
     font-size: 18px;
-    box-sizing: border-box;
+    box-sizing: border-box; 
   }
 `;
 

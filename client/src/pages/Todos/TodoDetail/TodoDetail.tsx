@@ -34,7 +34,7 @@ const TodoDetail = ({ title, content, id, createdAt, updatedAt }: TodoData) => {
           </li>
         </ul>
       </TodoDetailWrapper>
-      <button type="submit" onClick={onClickUpdate}>
+      <button type="submit" className="success" onClick={onClickUpdate}>
         Update <MdEdit />
       </button>
       <button type="reset" className="error" onClick={onClickDelete}>

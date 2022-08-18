@@ -5,7 +5,7 @@ import { CheckCircle, TodoItemTitle, TodoItemWrapper } from './TodoItem.style';
 
 interface TodoItemProps extends TodoData {
   index: number;
-  handleClick: (index: number, id: string) => void;
+  handleClick: (id: string) => void;
 }
 
 const TodoItem = ({ index, id, title, handleClick }: TodoItemProps) => {
@@ -19,7 +19,7 @@ const TodoItem = ({ index, id, title, handleClick }: TodoItemProps) => {
           {done && <MdDone />}
         </CheckCircle>
       </div>
-      <TodoItemTitle done={done} onClick={() => handleClick(index, id)}>
+      <TodoItemTitle done={done} onClick={() => handleClick(id)}>
         {title}
       </TodoItemTitle>
     </TodoItemWrapper>
