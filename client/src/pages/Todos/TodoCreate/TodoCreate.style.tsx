@@ -12,7 +12,6 @@ export const TodoFormWrapper = styled.form`
   flex: 1;
 
   textarea {
-    // border: 1px solid #dee2e6;
     height: 100%;
     resize: none;
   }

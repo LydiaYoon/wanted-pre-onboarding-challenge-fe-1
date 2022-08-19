@@ -13,7 +13,7 @@ const AuthContainer = styled.div`
     padding: 18px 0;
     font-size: 21px;
     font-weight: bold;
-    color: #495057;
+    color: var(--color-black);
   }
 
   p {

@@ -6,7 +6,7 @@ export const TodoDetailContainer = styled.div`
   height: 100%;
 
   line-height: initial;
-  word-break: break-all;
+  word-break: break-word;
 `;
 
 export const TodoDetailWrapper = styled.div`
@@ -14,12 +14,19 @@ export const TodoDetailWrapper = styled.div`
   overflow-y: auto;
 
   .title {
-    padding-bottom: 12px;
+    padding-bottom: 24px;
     font-size: 21px;
+    font-weight: bold;
   }
 
   .content {
     padding-bottom: 36px;
+    white-space: pre-wrap;
+  }
+
+  ul {
+    border-top: 1px solid #dee2e6;
+    padding: 24px 0 36px 0;
   }
 
   li {

@@ -1,16 +1,28 @@
-import { useNavigate } from 'react-router';
-import { PAGE } from '../../../enums/commonEnum';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
+import * as layoutActions from '../../../modules/layout/actions';
 import { useGetTodos } from '../api/useGetTodos';
+import TodoDetail from '../TodoDetail/TodoDetail';
 import TodoItem from '../TodoItem/TodoItem';
 import TodoListWrapper from './TodoList.style';
 
 const TodoList = () => {
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [, setSearchParams] = useSearchParams();
 
   const todos = useGetTodos();
 
-  const handleClick = (index: number, id: string) => {
-    navigate(`${PAGE.TODO_LIST}?id=${id}`);
+  useEffect(() => {
+    if (!!todos && !Array.isArray(todos)) {
+      dispatch(layoutActions.openModal({ isOpen: true, element: <TodoDetail {...todos} /> }));
+    } else {
+      dispatch(layoutActions.closeModal());
+    }
+  }, [todos]);
+
+  const handleClick = (id: string) => {
+    setSearchParams({ id: id });
   };
 
   return (

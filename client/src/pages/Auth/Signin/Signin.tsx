@@ -1,11 +1,8 @@
-import { useMutation } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import { ErrorResponse } from '../../../api/Api';
-import authAPI, { AuthParam, AuthResponse } from '../../../api/auth/authApi';
 import { PAGE } from '../../../enums/commonEnum';
 import { REGEX_EMAIL, REGEX_PASSWORD } from '../../../enums/regex';
+import { useSignin } from '../api/useSignin';
 
 type FormInputs = {
   email: string;
@@ -23,26 +20,15 @@ const Signin = () => {
     mode: 'onChange',
   });
 
+  const signinMutate = useSignin(() =>
+    setError('password', { type: 'signinFailure', message: '이메일 혹은 비밀번호가 잘못되었습니다.' })
+  );
+
   const onSubmit: SubmitHandler<FormInputs> = data => {
     if (isValid) {
-      mutate(data);
+      signinMutate(data);
     }
   };
-
-  const onSuccess = (response: AuthResponse) => {
-    console.log(response);
-    //navigator('/');
-  };
-
-  const onError = ({ response }: AxiosError<ErrorResponse>) => {
-    console.log(response?.data.details);
-    setError('password', { type: 'signinFailure', message: '이메일 혹은 비밀번호가 잘못되었습니다.' });
-  };
-
-  const { mutate } = useMutation<AuthResponse, AxiosError<ErrorResponse>, AuthParam>(
-    (user: AuthParam) => authAPI.signin(user),
-    { onSuccess, onError }
-  );
 
   return (
     <div className="auth-form-wrapper">

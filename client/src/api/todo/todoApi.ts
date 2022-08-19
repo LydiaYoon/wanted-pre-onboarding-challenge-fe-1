@@ -11,7 +11,7 @@ const todoAPI = {
     return response.data;
   },
 
-  getById: async ({ id, authToken }: { id: Id; authToken: AuthToken }) => {
+  getById: async ({ id, authToken }: GetTodoByIdParam) => {
     const response = await clientAPI.get<TodoResponse<TodoData>>(`/todos/${id}`, {
       headers: {
         Authorization: authToken,
@@ -20,7 +20,7 @@ const todoAPI = {
     return response.data;
   },
 
-  create: async ({ title, content, authToken }: TodoParam) => {
+  create: async ({ title, content, authToken }: CreateTodoParam) => {
     const response = await clientAPI.post<TodoResponse<TodoData>>(
       '/todos',
       { title, content },
@@ -33,9 +33,9 @@ const todoAPI = {
     return response.data;
   },
 
-  update: async ({ title, content, authToken }: TodoParam) => {
+  update: async ({ id, title, content, authToken }: UpdateTodoParam) => {
     const response = await clientAPI.put<TodoResponse<TodoData>>(
-      '/todos',
+      `/todos/${id}`,
       { title, content },
       {
         headers: {
@@ -46,7 +46,7 @@ const todoAPI = {
     return response.data;
   },
 
-  delete: async ({ id, authToken }: { id: Id; authToken: AuthToken }) => {
+  delete: async ({ id, authToken }: DeleteTodoParam) => {
     const response = await clientAPI.delete<TodoResponse<string>>(`/todos/${id}`, {
       headers: {
         Authorization: authToken,
@@ -61,11 +61,22 @@ export default todoAPI;
 export type Id = string;
 export type AuthToken = string;
 
-export interface TodoParam {
+export interface GetTodoByIdParam {
+  id: Id;
+  authToken: AuthToken;
+}
+
+export interface CreateTodoParam {
   title: string;
   content: string;
   authToken: AuthToken;
 }
+
+export interface UpdateTodoParam extends CreateTodoParam {
+  id: Id;
+}
+
+export type DeleteTodoParam = GetTodoByIdParam;
 
 export interface TodoResponse<T> {
   data: T | null;

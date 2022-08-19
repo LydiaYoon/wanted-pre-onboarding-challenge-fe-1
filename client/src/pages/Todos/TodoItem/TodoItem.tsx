@@ -9,7 +9,7 @@ interface TodoItemProps extends TodoData {
 }
 
 const TodoItem = ({ index, id, title, handleClick }: TodoItemProps) => {
-  const [done, setDone] = useState<boolean>(index % 2 == 0);
+  const [done, setDone] = useState<boolean>(index < 3);
   const onToggle = () => setDone(!done);
 
   return (

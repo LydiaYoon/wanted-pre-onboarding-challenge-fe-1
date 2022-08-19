@@ -179,6 +179,7 @@ const GlobalStyle = createGlobalStyle`
     }
     font-size: 18px;
     box-sizing: border-box; 
+    font-family: 'Spoqa Han Sans',sans-serif; 
   }
 `;
 

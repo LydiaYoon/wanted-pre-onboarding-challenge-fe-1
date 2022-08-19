@@ -8,19 +8,21 @@ import { Close, ModalBox, ModalContent, ModalHead, ModalWrapper } from './Modal.
 
 const Modal = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const { modal } = useSelector((state: RootState) => state.layout);
+
+  const navigate = useNavigate();
 
   const handleClickOutside = ({ target, currentTarget }: React.MouseEvent<HTMLDivElement>) => {
     if (modal.isOpen && target == currentTarget) {
       dispatch(layoutActions.closeModal());
+      navigate('/todos');
     }
   };
 
   const handleCloseButtonClick = () => {
     if (modal.isOpen) {
       dispatch(layoutActions.closeModal());
+      navigate('/todos');
     }
   };
 

@@ -18,7 +18,7 @@ const TodoTemplate = () => {
   }, []);
 
   const onClickButton = (event: React.MouseEvent<HTMLButtonElement>) => {
-    dispatch(layoutActions.openModal({ isOpen: true, element: <TodoCreate /> }));
+    dispatch(layoutActions.openModal({ isOpen: true, element: <TodoCreate id={null} /> }));
   };
 
   // TODO: 로그아웃 처리

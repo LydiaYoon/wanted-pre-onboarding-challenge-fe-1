@@ -13,7 +13,7 @@ export const TodoItemWrapper = styled.li`
     flex: 8;
     display: flex;
     line-height: initial;
-    word-break: break-all;
+    word-break: break-word;
   }
 `;
 
@@ -39,8 +39,7 @@ export const TodoItemTitle = styled.div<{ done: boolean }>`
   flex: 1;
   display: flex;
   align-items: center;
-  height: 32px;
-  color: #495057;
+  color: var(--color-black);
   font-size: 21px;
   cursor: pointer;
   ${props =>

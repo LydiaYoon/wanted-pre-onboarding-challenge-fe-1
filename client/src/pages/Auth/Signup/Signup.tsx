@@ -1,11 +1,8 @@
-import { useMutation } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import { ErrorResponse } from '../../../api/Api';
-import authAPI, { AuthParam, AuthResponse } from '../../../api/auth/authApi';
 import { PAGE } from '../../../enums/commonEnum';
 import { REGEX_EMAIL, REGEX_PASSWORD } from '../../../enums/regex';
+import { useSignup } from '../api/useSignup';
 
 type FormInputs = {
   email: string;
@@ -24,25 +21,15 @@ const Signup = () => {
     mode: 'onChange',
   });
 
+  const signupMutate = useSignup(() =>
+    setError('email', { type: 'signupFailure', message: '이미 존재하는 유저입니다.' })
+  );
+
   const onSubmit: SubmitHandler<FormInputs> = data => {
     if (isValid) {
-      mutate(data);
+      signupMutate(data);
     }
   };
-
-  const onSuccess = (response: AuthResponse) => {
-    console.log(response);
-  };
-
-  const onError = ({ response }: AxiosError<ErrorResponse>) => {
-    console.log(response?.data.details);
-    setError('email', { type: 'signupFailure', message: '이미 존재하는 유저입니다.' });
-  };
-
-  const { mutate } = useMutation<AuthResponse, AxiosError<ErrorResponse>, AuthParam>(
-    (user: AuthParam) => authAPI.signup(user),
-    { onSuccess, onError }
-  );
 
   return (
     <div className="auth-form-wrapper">
