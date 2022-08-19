@@ -1,32 +1,50 @@
 {
   "todos": [
     {
-      "title": "Week 1-1 학습주제",
-      "content": "개발자 취업 과정에서 기술 과제가 갖는 의미",
+      "title": "Week 1-1 학습주제 | 개발자 취업 과정에서 기술 과제가 갖는 의미",
+      "content": "CRUD / 선언형 / 성급한 추상화 / SRP\n\n• [OT] 강사 소개, 코스 커리큘럼 및 학습 목표 소개\n• [Session] 취업 프로세스에서 기술 과제가 갖는 의미 이해하기\n• [Refactoring-01] 맥락을 이해하기 힘든 변수명\n• [Refactoring-02] 명령형 프로그래밍\n• [Refactoring-03] 적절히 추상화 되지 않았거나, 성급하게 추상화된 함수와 컴포넌트\n• [아하!모먼트-01] 오픈소스 라이브러리를 처음부터 다시 따라 만들었을 때",
       "id": "XR_5Cc59-mRo3tvEcexQm",
       "createdAt": "2022-08-07T12:23:10.848Z",
       "updatedAt": "2022-08-07T12:23:10.848Z"
     },
     {
-      "title": "Week 1-2 학습주제",
-      "content": "로직이 아닌 구조를 통해 문제를 접근하는 방법",
+      "title": "Week 1-2 학습주제 | 로직이 아닌 구조를 통해 문제를 접근하는 방법",
+      "content": "타입스크립트 / 타입 가드 / 타입 추론 / 추상화 / 제어권\n\n• [Session] 타입스크립트에 대한 간략한 소개\n• [Refactoring-04] 타입 가드 및 타입 추론을 적절히 사용하지 않음\n• [Refactoring-05] 데이터 등 외부 요소에 강결합된 코드\n• [Refactoring-06] 너무 수다스러운 코드\n• [아하!모먼트-02] 코드 바깥으로 벗어난 내가 바보처럼 느껴졌을 때",
       "id": "PyX5cuzoLmzKzbGiunOl7",
       "createdAt": "2022-08-07T12:23:27.112Z",
       "updatedAt": "2022-08-07T12:23:27.112Z"
     },
     {
-      "title": "Week 2-1 학습주제",
-      "content": "관심사에 따른 폴더 및 파일 분리<br/> 깔끔한 서버 상태 관리를 위한 React Query 활용법",
+      "title": "Week 2-1 학습주제 | 관심사에 따른 폴더 및 파일 분리 / 깔끔한 서버 상태 관리를 위한 React Query 활용법",
+      "content": "React Query / UI 상태 / 서버 상태 / 폴더 구조 / 관심사의 분리\n\n• [Session] React Query에 대한 간략한 소개\n• [Refactoring-07] 관심사가 분리되지 않은 코드\n• [Refactoring-08] UI/UX에 대한 고려가 없는 구현\n• [아하!모먼트-03] 마법이 사실은 고도로 발전한 과학 기술임을 깨달을 때",
       "id": "K9KlGEMxIY--gQsvIstq1",
       "createdAt": "2022-08-07T12:23:40.431Z",
       "updatedAt": "2022-08-07T12:23:40.431Z"
     },
     {
-      "title": "Week 2-2 학습주제",
-      "content": "과제를 위해 작성한 코드의 의도를 협업자가 쉽게 이해하도록 돕는 방법",
+      "title": "Week 2-2 학습주제 | 과제를 위해 작성한 코드의 의도를 협업자가 쉽게 이해하도록 돕는 방법",
+      "content": "README / 기술 면접 요령\n\n• [Refactoring-09] 부실한 README\n• [Session] 과제 총 정리 및 피드백\n• [Session] 과제 통과 후 면접 요령 1) - 나를 일관성있게 소개하는 방법\n• [Session] 과제 통과 후 면접 요령 2) - 기술에 대해 의견을 제시하는 방법\n• [아하!모먼트-04] 내가 성장이라고 믿었던 것들",
       "id": "-pm0nMtyMOJKpoQn0jVdA",
       "createdAt": "2022-08-07T12:23:55.797Z",
       "updatedAt": "2022-08-07T12:23:55.797Z"
+    },
+    {
+      "title": "투두리스트 테스트",
+      "content": "1) 할 일을\n2) 미루지\n3) 말자",
+      "id": "m4QDt07YNKuS1VWl-At3q",
+      "createdAt": "2022-08-19T13:56:05.231Z",
+      "updatedAt": "2022-08-19T15:51:10.281Z"
+    },
+    {
+      "title": "테스트 입니다",
+      "content": "피카츄 라이츄 파이리 꼬부기\n버터플 야도란 피죤투 또가스\n서로 생긴 모습은 달라도\n우리는 모두 친구 (맞아!)",
+      "id": "r7MxgztLGlxb7dzrLrbKJ",
+      "createdAt": "2022-08-19T13:56:22.706Z",
+      "updatedAt": "2022-08-19T15:50:56.214Z",
+      "todoValue": {
+        "title": "테스트 입니다",
+        "content": "피카츄 라이츄 파이리 꼬부기\n버터플 야도란 피죤투 또가스\n서로 생긴 모습은 달라도\n우리는 모두 친구 (맞아!)"
+      }
     }
   ],
   "users": [
