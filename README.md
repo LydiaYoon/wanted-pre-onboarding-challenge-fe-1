@@ -6,18 +6,20 @@
 
 ## 1. 최종 구현 화면
 
-
 #### 회원가입
-<img src=".\img\signup.png" alt="signup" height="480" /><br/>
 - http://localhost:3000/auth/signup
+<img src=".\img\auth_signup.gif" alt="signup" height="480" /><br/>
 
 #### 로그인
-<img src=".\img\signin.png" alt="signin" height="480" /><br/>
 - http://localhost:3000/auth/signin
+<img src=".\img\auth_signin.gif" alt="signin" height="480" /><br/>
 
 #### 투두리스트
-<img src=".\img\todo.png" alt="todo" height="480" /><br/>
 - http://localhost:3000/todos
+<img src=".\img\todo_read.gif" alt="todo" height="480" /><br/>
+<img src=".\img\todo_create.gif" alt="todo" height="480" /><br/>
+<img src=".\img\todo_update.gif" alt="todo" height="480" /><br/>
+<img src=".\img\todo_delete.gif" alt="todo" height="480" /><br/>
 
 <br/><br/>
 
