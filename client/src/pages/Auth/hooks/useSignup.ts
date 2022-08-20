@@ -1,11 +1,17 @@
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
+import { useNavigate } from 'react-router';
 import { ErrorResponse } from '../../../api/Api';
-import authAPI, { AuthParam, AuthResponse } from '../../../api/auth/authApi';
+import authAPI, { AuthParam, AuthResponse } from '../../../api/authApi';
+import { routes } from '../../../routes/routes';
 
 export const useSignup = (errorCallback: () => void) => {
+  const navigate = useNavigate();
+
   const onSuccess = (response: AuthResponse) => {
-    console.log(response);
+    alert(response.message);
+    navigate(routes.signin);
+    location.reload();
   };
 
   const onError = ({ response }: AxiosError<ErrorResponse>) => {

@@ -8,13 +8,6 @@ const TodoContainer = styled.div`
   background: white;
   border-radius: 16px;
   box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.05);
-
-  .link {
-    display: flex;
-    justify-content: center;
-    margin-top: 36px;
-    color: #aaa;
-  }
 `;
 
 export default TodoContainer;

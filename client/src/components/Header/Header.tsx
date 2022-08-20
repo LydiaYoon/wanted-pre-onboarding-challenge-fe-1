@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../modules';
+import { RootState } from '../../modules';
 import { HeaderWrapper } from './Header.style';
 
 const Header = () => {

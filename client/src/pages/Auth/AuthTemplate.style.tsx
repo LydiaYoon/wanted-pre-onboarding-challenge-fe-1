@@ -34,13 +34,6 @@ const AuthContainer = styled.div`
     display: flex;
     flex-direction: column;
   }
-
-  .link {
-    display: flex;
-    justify-content: center;
-    margin-top: 36px;
-    color: #aaa;
-  }
 `;
 
 export default AuthContainer;

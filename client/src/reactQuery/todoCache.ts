@@ -1,11 +1,3 @@
-export interface Todo {
-  title: string;
-  content: string;
-  id: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
 const TODO_KEY = 'getTodo';
 
 export const todoCache = {

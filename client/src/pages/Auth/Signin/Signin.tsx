@@ -1,8 +1,8 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import { PAGE } from '../../../enums/commonEnum';
 import { REGEX_EMAIL, REGEX_PASSWORD } from '../../../enums/regex';
-import { useSignin } from '../api/useSignin';
+import { routes } from '../../../routes/routes';
+import { useSignin } from '../hooks/useSignin';
 
 type FormInputs = {
   email: string;
@@ -61,7 +61,7 @@ const Signin = () => {
         </button>
       </form>
       <div className="link">
-        <Link to={PAGE.SIGN_UP}>회원가입</Link>
+        <Link to={routes.signup}>회원가입</Link>
       </div>
     </div>
   );

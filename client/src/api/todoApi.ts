@@ -1,4 +1,4 @@
-import { clientAPI } from '../Api';
+import { clientAPI } from './Api';
 
 // API 인스턴스를 사용한 서버 통신
 const todoAPI = {

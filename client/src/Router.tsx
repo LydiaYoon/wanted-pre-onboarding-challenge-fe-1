@@ -1,24 +1,19 @@
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
-import { ALERT_MESSAGE, PAGE } from './enums/commonEnum';
 import Auth from './pages/Auth';
 import Todos from './pages/Todos';
+import { routes } from './routes/routes';
+import { isSignin } from './utils/authUtil';
 
 const Router = () => {
-  const authToken = JSON.parse(localStorage.getItem('authToken') as string);
-
   return (
     <>
       <Routes>
-        <Route path="/" element={<Navigate replace to="/todos" />} />
+        <Route path="/" element={<Navigate replace to={routes.todos} />} />
 
         <Route
           path="/auth/*"
           element={
-            <ProtectedRoute
-              isAllowed={!authToken || (!!authToken && !authToken.token)}
-              redirectPath={PAGE.TODO_LIST}
-              callback={() => alert(ALERT_MESSAGE.ALREADY_SIGN_IN)}
-            >
+            <ProtectedRoute isAllowed={!isSignin()} redirectPath={routes.todos}>
               <Auth />
             </ProtectedRoute>
           }
@@ -27,11 +22,7 @@ const Router = () => {
         <Route
           path="/todos"
           element={
-            <ProtectedRoute
-              isAllowed={!!authToken && !!authToken.token}
-              redirectPath={PAGE.SIGN_IN}
-              callback={() => alert(ALERT_MESSAGE.REQUIRE_SIGN_IN)}
-            >
+            <ProtectedRoute isAllowed={isSignin()} redirectPath={routes.signin}>
               <Todos />
             </ProtectedRoute>
           }
@@ -47,14 +38,12 @@ type ProtectedRouteProps = {
   isAllowed: boolean;
   redirectPath?: string;
   children?: JSX.Element;
-  callback: () => void;
 };
 
-export const ProtectedRoute = ({ isAllowed, redirectPath = '/', children, callback }: ProtectedRouteProps) => {
+export const ProtectedRoute = ({ isAllowed, redirectPath = '/', children }: ProtectedRouteProps) => {
   if (isAllowed) {
     return children ? children : <Outlet />;
   } else {
-    callback();
     return <Navigate to={redirectPath} replace />;
   }
 };

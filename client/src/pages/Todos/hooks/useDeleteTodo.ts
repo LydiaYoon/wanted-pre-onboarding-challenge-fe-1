@@ -1,25 +1,25 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ErrorResponse } from '../../../api/Api';
-import todoAPI, { DeleteTodoParam, TodoResponse } from '../../../api/todo/todoApi';
-import { todoCache } from '../../../model/todo';
+import todoAPI, { DeleteTodoParam, TodoResponse } from '../../../api/todoApi';
+import { todoCache } from '../../../reactQuery/todoCache';
+import { queryClient } from '../../../reactQuery/reactQuery';
+import { routes } from '../../../routes/routes';
+import { isSignin } from '../../../utils/authUtil';
 
 export const useDeleteTodo = () => {
   const navigate = useNavigate();
 
-  const client = useQueryClient();
-
-  const authToken = JSON.parse(localStorage.getItem('authToken') as string);
-  if (!authToken || (!!authToken && !authToken.token)) {
+  if (!isSignin()) {
     throw new Error('Token of user authentication is invalid.');
   }
 
   const onSuccess = (response: TodoResponse<string>) => {
     if (response.data === null) {
       alert('삭제되었습니다.');
-      navigate('/todos');
-      client.invalidateQueries([todoCache.getAll]);
+      navigate(routes.todos);
+      queryClient.invalidateQueries([todoCache.getAll]);
     }
   };
 
