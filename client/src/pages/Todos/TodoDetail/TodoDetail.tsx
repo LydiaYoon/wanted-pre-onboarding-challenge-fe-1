@@ -2,9 +2,9 @@ import dayjs from 'dayjs';
 import React from 'react';
 import { MdDelete, MdEdit } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
-import { TodoData } from '../../../api/todo/todoApi';
-import * as layoutActions from '../../../modules/layout';
-import { useDeleteTodo } from '../api/useDeleteTodo';
+import { TodoData } from '../../../api/todoApi';
+import { openModal } from '../../../modules/layout';
+import { useDeleteTodo } from '../hooks/useDeleteTodo';
 import TodoCreate from '../TodoCreate/TodoCreate';
 import { TodoDetailContainer, TodoDetailWrapper } from './TodoDetail.style';
 
@@ -14,11 +14,11 @@ const TodoDetail = ({ title, content, id, createdAt, updatedAt }: TodoData) => {
   const authToken = JSON.parse(localStorage.getItem('authToken') as string);
   const deleteMutate = useDeleteTodo();
 
-  const onClickUpdate = (event: React.MouseEvent<HTMLButtonElement>) => {
-    dispatch(layoutActions.openModal({ isOpen: true, element: <TodoCreate id={id} /> }));
+  const onClickUpdate = () => {
+    dispatch(openModal({ isOpen: true, element: <TodoCreate id={id} /> }));
   };
 
-  const onClickDelete = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const onClickDelete = () => {
     if (confirm('정말로 삭제하시겠습니까?')) {
       deleteMutate({ id, authToken: authToken.token });
     }

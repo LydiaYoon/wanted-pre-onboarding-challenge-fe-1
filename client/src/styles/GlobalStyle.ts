@@ -181,6 +181,15 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box; 
     font-family: 'Spoqa Han Sans',sans-serif; 
   }
+
+  .link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+    height: 50px;
+    cursor: pointer;
+  }
 `;
 
 export default GlobalStyle;

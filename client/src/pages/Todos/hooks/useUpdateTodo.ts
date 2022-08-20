@@ -1,17 +1,16 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useSearchParams } from 'react-router-dom';
 import { ErrorResponse } from '../../../api/Api';
-import todoAPI, { TodoData, TodoResponse, UpdateTodoParam } from '../../../api/todo/todoApi';
-import { todoCache } from '../../../model/todo';
+import todoAPI, { TodoData, TodoResponse, UpdateTodoParam } from '../../../api/todoApi';
+import { todoCache } from '../../../reactQuery/todoCache';
+import { queryClient } from '../../../reactQuery/reactQuery';
+import { isSignin } from '../../../utils/authUtil';
 
 export const useUpdateTodo = () => {
   const [, setSearchParams] = useSearchParams();
 
-  const client = useQueryClient();
-
-  const authToken = JSON.parse(localStorage.getItem('authToken') as string);
-  if (!authToken || (!!authToken && !authToken.token)) {
+  if (!isSignin()) {
     throw new Error('Token of user authentication is invalid.');
   }
 
@@ -19,7 +18,7 @@ export const useUpdateTodo = () => {
     if (response.data) {
       alert('수정되었습니다.');
       setSearchParams({ id: response.data.id });
-      client.invalidateQueries([todoCache.getById(response.data.id)]);
+      queryClient.invalidateQueries([todoCache.getById(response.data.id)]);
     }
   };
 

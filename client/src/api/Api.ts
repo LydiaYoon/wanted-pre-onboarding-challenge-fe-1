@@ -1,4 +1,5 @@
 import axios, { AxiosError } from 'axios';
+import { setSignin } from '../utils/authUtil';
 
 // API 호출 시 사용할 인스턴스
 export const clientAPI = axios.create({
@@ -10,8 +11,7 @@ clientAPI.interceptors.response.use(
   res => {
     // 응답 데이터에 token이 있을 경우 localStorage에 세팅
     if (res.data.token) {
-      // TODO: 토큰 만료 시간 설정 (expire)
-      localStorage.setItem('authToken', JSON.stringify({ token: res.data.token, persist: false }));
+      setSignin(res.data.token, false);
     }
     return res;
   },

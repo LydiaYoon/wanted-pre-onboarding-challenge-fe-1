@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
-import Header from '../../components/common/Header/Header';
-import * as layoutActions from '../../modules/layout/actions';
+import Header from '../../components/Header/Header';
+import { setHeaderTitle } from '../../modules/layout';
 import AuthContainer from './AuthTemplate.style';
 import Signin from './Signin/Signin';
 import Signup from './Signup/Signup';
@@ -11,7 +11,7 @@ const AuthTemplate = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(layoutActions.setHeaderTitle('Authentication'));
+    dispatch(setHeaderTitle('Authentication'));
   }, []);
 
   return (

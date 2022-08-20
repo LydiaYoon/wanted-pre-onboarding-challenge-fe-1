@@ -2,8 +2,9 @@ import React from 'react';
 import { MdClose } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { RootState } from '../../../modules';
-import * as layoutActions from '../../../modules/layout/actions';
+import { RootState } from '../../modules';
+import { closeModal } from '../../modules/layout';
+import { routes } from '../../routes/routes';
 import { Close, ModalBox, ModalContent, ModalHead, ModalWrapper } from './Modal.style';
 
 const Modal = () => {
@@ -14,15 +15,15 @@ const Modal = () => {
 
   const handleClickOutside = ({ target, currentTarget }: React.MouseEvent<HTMLDivElement>) => {
     if (modal.isOpen && target == currentTarget) {
-      dispatch(layoutActions.closeModal());
-      navigate('/todos');
+      dispatch(closeModal());
+      navigate(routes.todos);
     }
   };
 
   const handleCloseButtonClick = () => {
     if (modal.isOpen) {
-      dispatch(layoutActions.closeModal());
-      navigate('/todos');
+      dispatch(closeModal());
+      navigate(routes.todos);
     }
   };
 

@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
-import * as layoutActions from '../../../modules/layout/actions';
-import { useGetTodos } from '../api/useGetTodos';
+import { openModal, closeModal } from '../../../modules/layout';
+import { useGetTodos } from '../hooks/useGetTodos';
 import TodoDetail from '../TodoDetail/TodoDetail';
 import TodoItem from '../TodoItem/TodoItem';
 import TodoListWrapper from './TodoList.style';
@@ -15,9 +15,9 @@ const TodoList = () => {
 
   useEffect(() => {
     if (!!todos && !Array.isArray(todos)) {
-      dispatch(layoutActions.openModal({ isOpen: true, element: <TodoDetail {...todos} /> }));
+      dispatch(openModal({ isOpen: true, element: <TodoDetail {...todos} /> }));
     } else {
-      dispatch(layoutActions.closeModal());
+      dispatch(closeModal());
     }
   }, [todos]);
 

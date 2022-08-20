@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { MdDone } from 'react-icons/md';
-import { TodoData } from '../../../api/todo/todoApi';
+import { TodoData } from '../../../api/todoApi';
 import { CheckCircle, TodoItemTitle, TodoItemWrapper } from './TodoItem.style';
 
 interface TodoItemProps extends TodoData {
